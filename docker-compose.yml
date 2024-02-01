@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+  app:
+    build:
+      args:
+        user: ariel
+        uid: 1000
+      context: .
+    image: lessonmanagement
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+  
+  db:
+    image: mysql:latest
+    restart: unless-stopped
+    # Leemos del fichero .env
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+    # Este contenedor viene preparado para eecutar al iniciar los archivos en este directorio
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+  
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      # Forma de ver la aplicación
+      - 8800:80
+    volumes:
+      # Mapeamos document root (nuestra aplicación)
+      - ./:/var/www
+      # Mapeamos configuración nginx dentro del docker
+      - ./docker-compose/nginx:/etc/nginx/conf.d
