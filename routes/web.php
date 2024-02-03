@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'home'])->name('admin.home');
 
 Route::resource('profesor', ProfesorController::class);
+Route::resource('formacion', ProfesorController::class);
+Route::resource('modulo', ProfesorController::class);
+Route::resource('grupo', ProfesorController::class);
+Route::resource('leccion', ProfesorController::class);
