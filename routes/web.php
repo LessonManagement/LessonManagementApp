@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\FormacionController;
+use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LeccionController;
+use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\ProfesorController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +20,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [HomeController::class, 'home'])->name('admin.home');
 
+// Rutas de recursos para gestionar las tablas
 Route::resource('profesor', ProfesorController::class);
-Route::resource('formacion', ProfesorController::class);
-Route::resource('modulo', ProfesorController::class);
-Route::resource('grupo', ProfesorController::class);
-Route::resource('leccion', ProfesorController::class);
+Route::resource('formacion', FormacionController::class);
+Route::resource('modulo', ModuloController::class);
+Route::resource('grupo', GrupoController::class);
+Route::resource('leccion', LeccionController::class);
