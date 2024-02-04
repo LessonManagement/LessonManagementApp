@@ -12,7 +12,7 @@ class ProfesorController extends Controller
      */
     public function index()
     {
-        //
+        return view('profesor.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class ProfesorController extends Controller
      */
     public function create()
     {
-        //
+        return view('profesor.create');
     }
 
     /**

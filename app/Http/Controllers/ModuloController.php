@@ -12,7 +12,7 @@ class ModuloController extends Controller
      */
     public function index()
     {
-        //
+        return view('modulo.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class ModuloController extends Controller
      */
     public function create()
     {
-        //
+        return view('modulo.create');
     }
 
     /**

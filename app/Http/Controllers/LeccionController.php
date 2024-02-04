@@ -12,7 +12,7 @@ class LeccionController extends Controller
      */
     public function index()
     {
-        //
+        return view('leccion.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class LeccionController extends Controller
      */
     public function create()
     {
-        //
+        return view('leccion.create');
     }
 
     /**

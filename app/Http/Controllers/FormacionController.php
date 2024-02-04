@@ -12,7 +12,7 @@ class FormacionController extends Controller
      */
     public function index()
     {
-        //
+        return view('formacion.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class FormacionController extends Controller
      */
     public function create()
     {
-        //
+        return view('formacion.create');
     }
 
     /**

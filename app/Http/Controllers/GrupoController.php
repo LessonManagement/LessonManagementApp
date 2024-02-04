@@ -12,7 +12,7 @@ class GrupoController extends Controller
      */
     public function index()
     {
-        //
+        return view('grupo.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class GrupoController extends Controller
      */
     public function create()
     {
-        //
+        return view('grupo.create');
     }
 
     /**
