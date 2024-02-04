@@ -176,5 +176,15 @@
 @endsection
 
 @section('main-content')
-
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="bread-crumbs">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ urL('leccion') }}">Lección</a></li>
+                <li class="breadcrumb-item active"><a href="{{ url('leccion/{leccion}/edit') }}">Editar lección</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
 @endsection
