@@ -26,6 +26,18 @@ services:
     volumes:
     # Este contenedor viene preparado para eecutar al iniciar los archivos en este directorio
       - ./mysql:/docker-entrypoint-initdb.d
+      - ./mysql/data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    restart: always
+    ports:
+      - 8801:80
   
   nginx:
     image: nginx:latest
