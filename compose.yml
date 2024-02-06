@@ -15,7 +15,6 @@ services:
   db:
     image: mysql:latest
     restart: unless-stopped
-    # Leemos del fichero .env
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
@@ -24,7 +23,6 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-    # Este contenedor viene preparado para eecutar al iniciar los archivos en este directorio
       - ./mysql:/docker-entrypoint-initdb.d
       - ./mysql/data:/var/lib/mysql
 
@@ -43,10 +41,7 @@ services:
     image: nginx:latest
     restart: unless-stopped
     ports:
-      # Forma de ver la aplicación
       - 8800:80
     volumes:
-      # Mapeamos document root (nuestra aplicación)
       - ./laravel/:/var/www
-      # Mapeamos configuración nginx dentro del docker
       - ./nginx:/etc/nginx/conf.d
