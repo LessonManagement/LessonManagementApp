@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Modulo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ModuloController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('modulo.index');
+        $rpp = 10;
+        // ['idformacion', 'denominacion', 'siglas', 'curso', 'horas', 'especialidad']
+        $moduloQuery = DB::table('modulo')
+                ->join('formacion', 'modulo.idformacion', '=', 'formacion.id')
+                ->select('formacion.denominacion AS formacion', 'modulo.denominacion AS denominacion',
+                'modulo.siglas AS siglas', 'modulo.curso AS curso', 'modulo.horas AS horas',
+                'modulo.especialidad AS especialidad');
+
+        $modulos = $moduloQuery->paginate($rpp);
+        return view('modulo.index', ['modulos' => $modulos]);
     }
 
     /**
