@@ -5,8 +5,8 @@ services:
       args:
         user: ariel
         uid: 1000
-      context: .
-    image: lessonmanagement
+      context: ./laravel
+    image: lm_laravel
     restart: unless-stopped
     working_dir: /var/www
     volumes:
