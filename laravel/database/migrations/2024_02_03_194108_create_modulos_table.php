@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modulos', function (Blueprint $table) {
+        Schema::create('modulo', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('idformacion')->unsigned();
+            $table->string('demoninacion', 100);
+            $table->string('siglas', 10);
+            $table->integer('curso');
+            $table->integer('horas');
+            $table->string('especialidad', 100);
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modulos');
+        Schema::dropIfExists('modulo');
     }
 };
