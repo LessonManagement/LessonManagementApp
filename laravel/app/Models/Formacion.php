@@ -13,7 +13,7 @@ class Formacion extends Model
     
     protected $fillable = ['denominacion', 'siglas'];
 
-    function modulo() {
+    function modulos() {
         return $this->hasMany('App\Models\Modulo', 'idformacion');
     }
 }
