@@ -11,4 +11,9 @@ class Profesor extends Model
 
     protected $table = 'profesor';
     protected $fillable = ['seneca_username', 'name', 'apellido1', 'apellido2', 'especialidad'];
+
+    // Lecciones
+    function lecciones() {
+        return $this->hasMany('App\Models\Leccion', 'idprofesor');
+    }
 }
