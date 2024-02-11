@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('idformacion');
             $table->foreign('idformacion')->references('id')->on('formacion')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('demoninacion', 100);
+            $table->string('denominacion', 100);
             $table->string('siglas', 10);
             $table->integer('curso');
             $table->integer('horas');
