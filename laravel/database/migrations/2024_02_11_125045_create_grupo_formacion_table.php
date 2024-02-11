@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modulo', function (Blueprint $table) {
+        Schema::create('grupo_formacion', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('idgrupo');
+            $table->foreign('idgrupo')->references('id')->on('grupo')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('idformacion');
             $table->foreign('idformacion')->references('id')->on('formacion')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('demoninacion', 100);
-            $table->string('siglas', 10);
-            $table->integer('curso');
-            $table->integer('horas');
-            $table->string('especialidad', 100);
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modulo');
+        Schema::dropIfExists('grupo_formacion');
     }
 };

@@ -10,7 +10,7 @@ class Profesor extends Model
     use HasFactory;
 
     protected $table = 'profesor';
-    protected $fillable = ['seneca_username', 'name', 'apellido1', 'apellido2', 'especialidad'];
+    protected $fillable = ['seneca_username', 'nombre', 'apellido1', 'apellido2', 'email', 'especialidad'];
 
     // Lecciones
     function lecciones() {

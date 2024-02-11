@@ -13,8 +13,10 @@ class Modulo extends Model
     
     protected $fillable = ['idformacion', 'denominacion', 'siglas', 'curso', 'horas', 'especialidad'];
     
-    function formacion() {
-        return $this->belongsTo('App\Models\Formacion', 'idformacion');
+    // Relación belongstomany tabla pivot modelo_formacion
+    function formaciones() {
+        return $this->belongsToMany('App\Formacion', 'grupo_formacion', 'idmodulo', 'idformacion')
+            ->withTimestamps();
     }
 
     // Lecciones

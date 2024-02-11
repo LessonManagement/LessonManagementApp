@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('grupo', function (Blueprint $table) {
             $table->id();
             $table->integer('curso_escolar');
-            $table->bigInteger('idformacion')->unsigned();
+            $table->foreignId('idformacion');
+            $table->foreign('idformacion')->references('id')->on('formacion')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('curso');
             $table->string('denominacion', 150);
             $table->string('turno', 20);

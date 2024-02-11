@@ -13,9 +13,10 @@ class Grupo extends Model
     
     protected $fillable = ['curso_escolar', 'idformacion', 'curso', 'horas', 'especialidad'];
 
-    // Consultar como hacer la relación muchos a muchos
+    // Relación belongstomany tabla pivot grupo_formacion
     function formaciones() {
-        return $this->hasMany('App\Models\Formacion', 'idformacion');
+        return $this->belongsToMany('App\Formacion', 'grupo_formacion', 'idgrupo', 'idformacion')
+            ->withTimestamps();
     }
     // Lecciones
     function lecciones() {

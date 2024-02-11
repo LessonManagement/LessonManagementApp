@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('leccion', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('idgrupo')->unsigned();
-            $table->bigInteger('idmodulo')->unsigned();
-            $table->bigInteger('idprofesor')->unsigned();
+            $table->foreignId('idgrupo');
+            $table->foreign('idgrupo')->references('id')->on('grupo')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('idmodulo');
+            $table->foreign('idmodulo')->references('id')->on('modulo')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('idprofesor');
+            $table->foreign('idprofesor')->references('id')->on('profesor')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('horas')->unsigned();
             $table->timestamps();
         });
