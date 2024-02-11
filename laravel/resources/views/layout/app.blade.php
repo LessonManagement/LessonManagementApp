@@ -8,11 +8,13 @@
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="{{ url('assets/static/lm_ico.svg') }}" type="image/x-icon">
     <!-- CSS files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="{{ url('assets/css/tabler.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ url('assets/css/tabler-flags.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ url('assets/css/tabler-payments.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ url('assets/css/tabler-vendors.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ url('assets/css/demo.min.css?1684106062') }}" rel="stylesheet" />
+    <link href="{{ url('assets/css/styles.css') }}" rel="stylesheet" />
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -40,8 +42,8 @@
                     </button>
                     <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                         <a href=".">
-                            <img src="{{ url('assets/static/lm_logo.svg') }}" width="110" height="32" alt="LessonManagement"
-                                class="navbar-brand-image">
+                            <img src="{{ url('assets/static/lm_logo.svg') }}" width="110" height="32"
+                                alt="LessonManagement" class="navbar-brand-image">
                         </a>
                     </h1>
                     <div class="navbar-nav flex-row order-md-last">
@@ -146,10 +148,27 @@
                 </div>
             </header>
         </div>
+
         <div class="page-wrapper">
+            <div class="container-xl mt-5">
+                <div class="alert alert-success alert-dismissible d-flex align-items-center" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                    </svg>
+                    <div style="margin-left: .8rem">
+                        {{ session('message') }}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            @if (session('message'))
+            @endif
             @yield('main-content')
             <footer class="footer footer-transparent d-print-none">
                 <div class="container-xl">
+
                     <div class="row text-center align-items-center flex-row-reverse">
                         <div class="col-lg-auto ms-lg-auto">
                             <ul class="list-inline list-inline-dots mb-0">
@@ -181,8 +200,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">New report</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
@@ -297,9 +315,12 @@
     <script src="{{ url('assets/libs/jsvectormap/dist/js/jsvectormap.min.js?1684106062') }}" defer></script>
     <script src="{{ url('assets/libs/jsvectormap/dist/maps/world.js?1684106062') }}" defer></script>
     <script src="{{ url('assets/libs/jsvectormap/dist/maps/world-merc.js?1684106062') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!-- Tabler Core -->
     <script src="{{ url('assets/js/tabler.min.js?1684106062') }}" defer></script>
     <script src="{{ url('assets/js/demo.min.js?1684106062') }}" defer></script>
+    <script src="{{ url('assets/js/main.js') }}" defer></script>
     <script>
         // @formatter:off
         document.addEventListener("DOMContentLoaded", function() {
