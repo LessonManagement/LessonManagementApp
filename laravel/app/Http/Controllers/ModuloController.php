@@ -13,13 +13,20 @@ class ModuloController extends Controller
      */
     public function index(Request $request)
     {
-        $rpp = 10;
+        $rpp = 5;
         // ['idformacion', 'denominacion', 'siglas', 'curso', 'horas', 'especialidad']
         $moduloQuery = DB::table('modulo')
-                ->join('formacion', 'modulo.idformacion', '=', 'formacion.id')
-                ->select('formacion.denominacion AS formacion', 'modulo.denominacion AS denominacion',
-                'modulo.siglas AS siglas', 'modulo.curso AS curso', 'modulo.horas AS horas',
-                'modulo.especialidad AS especialidad');
+            ->join('modulo_formacion', 'modulo.id', '=', 'modulo_formacion.idmodulo')
+            ->join('formacion', 'modulo_formacion.idformacion', '=', 'formacion.id')
+            ->select(
+                'modulo.id AS id',
+                'formacion.denominacion AS formacion',
+                'modulo.denominacion AS denominacion',
+                'modulo.siglas AS siglas',
+                'modulo.curso AS curso',
+                'modulo.horas AS horas',
+                'modulo.especialidad AS especialidad'
+            );
 
         $modulos = $moduloQuery->paginate($rpp);
         return view('modulo.index', ['modulos' => $modulos]);
@@ -70,6 +77,11 @@ class ModuloController extends Controller
      */
     public function destroy(Modulo $modulo)
     {
-        //
+        try {
+            $modulo->delete();
+            return redirect('modulo')->with(['message' => 'El módulo ha sido borrado correctamente']);
+        } catch (\Exception $e) {
+            return back()->withErrors(['message' => 'El módulo no ha sido borrado']);
+        }
     }
 }
