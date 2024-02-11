@@ -212,14 +212,128 @@
 @endsection
 
 @section('main-content')
-<div class="page-header d-print-none">
-    <div class="container-xl">
-        <div class="bread-crumbs">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
-                <li class="breadcrumb-item active"><a href="{{ url('modulo') }}">Módulo</a></li>
-            </ol>
+
+@include('modulo.modals.deleteModulo')
+
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="bread-crumbs mb-5">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ url('modulo') }}">Módulo</a></li>
+                </ol>
+            </div>
         </div>
     </div>
-</div>
+    <div class="page-body">
+        <div class="container-xl">
+            {{-- TABLA PARA MOSTRAR MODULOS --}}
+            <div class="row row-cards">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Lista de módulos</h3>
+                        </div>
+                        <div class="card-body border-bottom py-3">
+                            <div class="d-flex">
+                                <div class="text-muted">
+                                    Show
+                                    <div class="mx-2 d-inline-block">
+                                        <select class="form-select form-select-sm" name="rpp" id="rpp"
+                                            aria-label="Rows per page">
+                                            <option value="3">3</option>
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                    </div>
+                                    entries
+                                </div>
+                                <div class="ms-auto text-muted">
+                                    Search:
+                                    <div class="ms-2 d-inline-block">
+                                        <input type="text" class="form-control form-control-sm"
+                                            aria-label="Search invoice">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive" style="min-height: 250px">
+                            <table class="table card-table table-vcenter text-nowrap datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1">ID</th>
+                                        <th>Denominación</th>
+                                        <th>Siglas</th>
+                                        <th>Formación</th>
+                                        <th>Curso</th>
+                                        <th>Horas</th>
+                                        <th>Especialidad</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($modulos as $modulo)
+                                        <tr>
+                                            <td>
+                                                {{ $modulo->id }}
+                                            </td>
+                                            <td>
+                                                {{ $modulo->denominacion }}
+                                            </td>
+                                            <td>
+                                                {{ $modulo->siglas }}
+                                            </td>
+                                            <td>
+                                                {{ $modulo->formacion }}
+                                            </td>
+                                            <td>
+                                                {{ $modulo->curso }}
+                                            </td>
+                                            <td>
+                                                {{ $modulo->horas }}
+                                            </td>
+                                            <td>
+                                                {{ $modulo->especialidad }}
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="dropdown">
+                                                    <button class="btn dropdown-toggle align-text-top"
+                                                        data-bs-boundary="viewport"
+                                                        data-bs-toggle="dropdown">Acciones</button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item"
+                                                            href="{{ url('modulo/' . $modulo->id) }}"
+                                                            style="transform: translate3d(0px, auto, 0px)">
+                                                            Mostrar
+                                                        </a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ url('modulo/' . $modulo->id . '/edit') }}">
+                                                            Editar
+                                                        </a>
+                                                        <button type="button" form="deleteModuloForm"
+                                                            class="dropdown-item"
+                                                            data-url="{{ url('modulo/' . $modulo->id) }}"
+                                                            data-siglas="{{ $modulo->siglas }}" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModuloModal">
+                                                            Eliminar
+                                                        </button>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">Showing <span>1</span> to <span>8</span> of <span>16</span> entries
+                            </p>
+                            {{ $modulos->onEachSide(2)->links() }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
