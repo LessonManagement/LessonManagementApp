@@ -53,7 +53,20 @@ class ModuloController extends Controller
      */
     public function show(Modulo $modulo)
     {
-        //
+        $modulo = DB::table('modulo')
+                    ->join('modulo_formacion', 'modulo.id', '=', 'modulo_formacion.idmodulo')
+                    ->join('formacion', 'modulo_formacion.idformacion', '=', 'formacion.id')
+                    ->select(
+                        'modulo.id AS id',
+                        'formacion.denominacion AS formacion',
+                        'modulo.denominacion AS denominacion',
+                        'modulo.siglas AS siglas',
+                        'modulo.curso AS curso',
+                        'modulo.horas AS horas',
+                        'modulo.especialidad AS especialidad'
+                    )
+                    ->where('modulo.id', '=', $modulo->id)->get();
+        return view('modulo.show', ['modulo' => $modulo[0]]);
     }
 
     /**
@@ -61,7 +74,7 @@ class ModuloController extends Controller
      */
     public function edit(Modulo $modulo)
     {
-        //
+        return view('modulo.edit', ['modulo' => $modulo]);
     }
 
     /**
