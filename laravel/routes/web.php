@@ -31,3 +31,4 @@ Route::resource('leccion', LeccionController::class);
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home.home');
