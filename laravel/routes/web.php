@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', [HomeController::class, 'home'])->name('admin.home');
+//Route::get('/', [HomeController::class, 'home'])->name('admin.home');
 
 // Rutas de recursos para gestionar las tablas
 Route::resource('profesor', ProfesorController::class);
@@ -26,3 +26,8 @@ Route::resource('formacion', FormacionController::class);
 Route::resource('modulo', ModuloController::class);
 Route::resource('grupo', GrupoController::class);
 Route::resource('leccion', LeccionController::class);
+
+// 
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
