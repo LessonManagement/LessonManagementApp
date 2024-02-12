@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class ModuloController extends Controller
 {
+    public function __construct() {
+        // Para todas las rutas debes estar autenticado
+        $this->middleware('verificado');
+        // Para todas las rutas que no sean el listado de lecciones, se debe estar verificado
+        // Para todas las rutas que no sean la index, se debe ser admin o root
+        $this->middleware('admin')->except(['index']);
+    }
+
     /**
      * Display a listing of the resource.
      */
