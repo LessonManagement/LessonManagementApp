@@ -26,4 +26,9 @@ class HomeController extends Controller
         return view('home.home');
     }
 
+    public function home()
+    {
+        return redirect('/');
+    }
+
 }
