@@ -223,6 +223,11 @@
                     <li class="breadcrumb-item active"><a href="{{ url('modulo') }}">Módulo</a></li>
                 </ol>
             </div>
+            <div class="row g-2">
+                <h2 class="page-title">
+                    Lista de módulos
+                </h2>
+            </div>
         </div>
     </div>
     <div class="page-body">
@@ -231,9 +236,6 @@
             <div class="row row-cards">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Lista de módulos</h3>
-                        </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
                                 <div class="text-muted">
