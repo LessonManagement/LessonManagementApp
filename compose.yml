@@ -53,7 +53,7 @@ services:
     image: nodejs-express
     restart: unless-stopped
     ports:
-      - "8443:443"
+      - "443:443"
     volumes:
       - ./express/:/home/node/app
       - ./express/node_modules:/home/node/app/node_modules
