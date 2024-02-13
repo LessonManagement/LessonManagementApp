@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class ModuloController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         // Para todas las rutas debes estar autenticado
         $this->middleware('verificado');
         // Para todas las rutas que no sean el listado de lecciones, se debe estar verificado
@@ -62,18 +63,18 @@ class ModuloController extends Controller
     public function show(Modulo $modulo)
     {
         $modulo = DB::table('modulo')
-                    ->join('modulo_formacion', 'modulo.id', '=', 'modulo_formacion.idmodulo')
-                    ->join('formacion', 'modulo_formacion.idformacion', '=', 'formacion.id')
-                    ->select(
-                        'modulo.id AS id',
-                        'formacion.denominacion AS formacion',
-                        'modulo.denominacion AS denominacion',
-                        'modulo.siglas AS siglas',
-                        'modulo.curso AS curso',
-                        'modulo.horas AS horas',
-                        'modulo.especialidad AS especialidad'
-                    )
-                    ->where('modulo.id', '=', $modulo->id)->get();
+            ->join('modulo_formacion', 'modulo.id', '=', 'modulo_formacion.idmodulo')
+            ->join('formacion', 'modulo_formacion.idformacion', '=', 'formacion.id')
+            ->select(
+                'modulo.id AS id',
+                'formacion.denominacion AS formacion',
+                'modulo.denominacion AS denominacion',
+                'modulo.siglas AS siglas',
+                'modulo.curso AS curso',
+                'modulo.horas AS horas',
+                'modulo.especialidad AS especialidad'
+            )
+            ->where('modulo.id', '=', $modulo->id)->get();
         return view('modulo.show', ['modulo' => $modulo[0]]);
     }
 
@@ -102,7 +103,7 @@ class ModuloController extends Controller
             $modulo->delete();
             return redirect('modulo')->with(['message' => 'El módulo ha sido borrado correctamente']);
         } catch (\Exception $e) {
-            return back()->withErrors(['message' => 'El módulo no ha sido borrado']);
+            return redirect('modulo')->withErrors(['message' => 'El módulo no ha sido borrado']);
         }
     }
 }
