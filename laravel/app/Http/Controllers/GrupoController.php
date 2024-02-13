@@ -2,17 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Grupo;
 use Illuminate\Http\Request;
+use App\Models\Grupo;
+use Illuminate\Support\Facades\DB;
 
 class GrupoController extends Controller
 {
+    public function __construct()
+    {
+        // Para todas las rutas debes estar autenticado
+        $this->middleware('verificado');
+        // Para todas las rutas que no sean el listado de lecciones, se debe estar verificado
+        // Para todas las rutas que no sean la index, se debe ser admin o root
+        $this->middleware('admin')->except(['index']);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('grupo.index');
+        $rpp = 5;
+        $grupoQuery = DB::table('modulo')
+        ->join('modulo_formacion', 'modulo.id', '=', 'modulo_formacion.idmodulo')
+        ->join('formacion', 'modulo_formacion.idformacion', '=', 'formacion.id')
+        ->select(
+            'modulo.id AS id',
+            'formacion.denominacion AS formacion',
+            'modulo.denominacion AS denominacion',
+            'modulo.siglas AS siglas',
+            'modulo.curso AS curso',
+            'modulo.horas AS horas',
+            'modulo.especialidad AS especialidad'
+        );
+        $grupos = $grupoQuery->paginate($rpp);
+        return view('grupo.index',['grupos' => $grupos]);
     }
 
     /**
@@ -24,35 +47,48 @@ class GrupoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Tiene que llegar por el request el id de formacion
      */
     public function store(Request $request)
     {
-        //
+        $grupo = new Grupo($request->all());
+        
+        try{
+            $grupo->save();
+        }catch(\Exception $e){
+            return back()->withInput()->withErrors(['message'=> 'EL grupo no se ha podido gruardar corractamente.']); 
+        }
+        
+        return redirect('question')->with(['message'=>'EL grupo se ha guardado correctamente']);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Grupo $grupo)
     {
-        //
+        return view('grupo.show',['grupo' => $grupo]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Grupo $grupo)
     {
-        //
+        
+        return view('grupo.edit',['grupo' => $grupo]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * En este metodo deberia llegar por el request el id de formacion
      */
     public function update(Request $request, Grupo $grupo)
     {
-        //
+        
+        try{
+            
+            $question->update($request->all());
+    
+        }catch(\Exception $e){
+            
+            return back()->withInput()-> withErrors(['message'=> 'No ha sido podible guardar los cambios']);
+        }
+        
+        return redirect('grupo')->with(['message'=>'El grupo se ha actualizado corractamente.']);
     }
 
     /**
@@ -60,6 +96,13 @@ class GrupoController extends Controller
      */
     public function destroy(Grupo $grupo)
     {
-        //
+        try {
+            
+            $grupo->delete();
+            
+            return redirect('grupo')->with(['message' => 'EL grupo se ha borrado correctamente.']);
+        } catch(\Exception $e) {
+            return back()->withErrors(['message' => 'El grupo no se ha podido borrar correctamente.']);
+        }
     }
 }

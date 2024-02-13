@@ -1,4 +1,4 @@
-<div class="modal modal-blur fade" id="deleteGrupoModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-blur fade" id="deleteModuloModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -15,8 +15,8 @@
                     <path d="M12 17h.01" />
                 </svg>
                 <h3>Estás seguro?</h3>
-                <div class="text-muted">¿Deseas borrar el Grupo <span class="font-weight-bold"
-                        id="nombre-grupo"></span>?</div>
+                <div class="text-muted">¿Deseas borrar el modulo <span class="font-weight-bold"
+                        id="nombre-modulo"></span>?</div>
             </div>
             <form id="deleteForm" action="{{ url('') }}" method="post">
                 @csrf
@@ -43,15 +43,15 @@
 </div>
 <script>
     // Funcionalidad para borrar módulos
-    const deleteModal = document.getElementById('deleteGrupoModal');
-    const denominacionGrupo = document.getElementById('denominacion-Grupo');
+    const deleteModal = document.getElementById('deleteModuloModal');
+    const siglasModulo = document.getElementById('nombre-modulo');
     const formDelete = document.getElementById('deleteForm');
 
     deleteModal.addEventListener('show.bs.modal', event => {
-        let denominacion = event.relatedTarget.dataset.denominacion;
+        let siglas = event.relatedTarget.dataset.siglas;
         let url = event.relatedTarget.dataset.url;
 
-        denominacionGrupo.innerText = denominacion;
+        siglasModulo.innerText = siglas;
         formDelete.action = url;
     });
 </script>
