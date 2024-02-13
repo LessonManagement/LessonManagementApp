@@ -31,7 +31,7 @@
                             </a>
                         </div>
                         <div class="col">
-                            <button class="btn w-100" form="deleteForm" type="submit">
+                            <button class="btn btn-danger w-100" form="deleteForm" type="submit">
                                 Eliminar módulo
                             </button>
                         </div>
