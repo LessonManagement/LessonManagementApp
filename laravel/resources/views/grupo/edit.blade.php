@@ -255,7 +255,7 @@
                             placeholder="Introduce la formacion...">
                             @foreach($denomiFormacion as $formacion)
                             <option value="{{old('idformacion',$formacion->id)}}" {{ ($formacion->denominacion ==
-                                $formacion->denominacion)? 'selected': '';}} >{{$formacion->denominacion}}</option>
+                                $formacion->denominacion) ? 'selected': ''}} >{{$formacion->denominacion}}</option>
                             @endforeach
                         </select>
                     </div>
