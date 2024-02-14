@@ -207,7 +207,8 @@
                     <div class="mb-3">
                         <label class="form-label required">Nombre</label>
                         <div>
-                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Introduce el nombre..." maxlength="100" minlength="1" required>
+                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Introduce el nombre..." 
+                            maxlength="100" minlength="1" required>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -218,7 +219,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label required">Segundo apellido</label>
+                        <label class="form-label">Segundo apellido</label>
                         <div>
                             <input type="text" class="form-control" name="apellido2" id="apellido2" placeholder="Introduce el segundo apellido..." 
                             maxlength="100" minlength="1">

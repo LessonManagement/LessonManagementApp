@@ -222,7 +222,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label required">Segundo apellido</label>
+                        <label class="form-label">Segundo apellido</label>
                         <div>
                             <input type="text" class="form-control" name="apellido2" id="apellido2" placeholder="Introduce el segundo apellido..." 
                             value="{{ old('apellido2', $profesor->apellido2) }}" maxlength="100" minlength="1">
