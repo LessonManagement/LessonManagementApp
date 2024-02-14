@@ -1,3 +1,38 @@
 .pagination {
     margin-bottom: 0 !important;
 }
+
+/* Boton create en index */
+.index-create-btn {
+    text-align: right;
+    color: inherit;
+    transition: all .3s ease-in-out;
+    position: relative;
+    color: #206bc4;
+}
+
+.index-create-btn:hover {
+    text-decoration: none;
+    transform: translateX(-26px);
+    color: #206bc4;
+}
+
+.index-create-btn:hover::after {
+    content: '';
+    right: -20px;
+    opacity: 1;
+}
+
+.index-create-btn::after {
+    content: '';
+    width: 20px;
+    height: 100%;
+    position: absolute;
+    right: -40px;
+    opacity: 0;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(../static/add_ico.svg);
+    transition: all .3s ease-in-out;
+}
