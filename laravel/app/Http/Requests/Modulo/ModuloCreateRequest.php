@@ -35,7 +35,6 @@ class ModuloCreateRequest extends FormRequest
             'idformacion.required' => $required,
             'idformacion.integer' => $integer,
             'siglas.required' => $required,
-            'siglas.integer' => $integer,
             'siglas.max' => $max,
             'curso.required' => $required,
             'curso.integer' => $integer,
@@ -58,7 +57,7 @@ class ModuloCreateRequest extends FormRequest
         return [
             'denominacion' => 'required|string|max:100',
             'idformacion' => 'required|integer',
-            'siglas' => 'required|integer|max:10',
+            'siglas' => 'required|string|max:10',
             'curso' => 'required|integer|gte:1',
             'horas' => 'required|integer|gte:1',
             'especialidad' => 'required|string|max:100',
