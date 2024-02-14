@@ -113,7 +113,12 @@ class ModuloController extends Controller
      */
     public function update(ModuloEditRequest $request, Modulo $modulo)
     {
-        
+        try {
+            $result = $modulo->update($request->all());
+            return redirect('modulo')->with(['message' => 'El módulo se ha actualizado correctamente']);
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors(['message' => 'El módulo no se ha actualizado correctamente']);
+        }
     }
 
     /**
