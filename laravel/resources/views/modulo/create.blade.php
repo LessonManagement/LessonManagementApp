@@ -230,7 +230,8 @@
     </div>
     <div class="page-body">
         <div class="container-xl">
-            <form class="card">
+            <form class="card" action="{{url('modulo')}}" method="post">
+                @csrf
                 <div class="card-header">
                     <h3 class="card-title">Nuevo módulo</h3>
                 </div>
@@ -239,37 +240,46 @@
                         <label class="form-label required">Denominación</label>
                         <div>
                             <input type="text" class="form-control" name="denominacion" id="denominacion" placeholder="Introduce la denominación..."
-                            maxlength="100" minlength="1" required>
+                            maxlength="100" minlength="1" required value="{{old('denominacion')}}">
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Siglas</label>
                         <div>
-                            <input type="text" class="form-control" name="siglas" id="siglas" placeholder="Introduce las siglas..." maxlength="10" minlength="1" required>
+                            <input type="text" class="form-control" name="siglas" id="siglas" placeholder="Introduce las siglas..."
+                            maxlength="10" minlength="1" required value="{{old('siglas')}}">
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Formación</label>
                         <div>
-                            <select name="formacion" id="formacion" class="form-select"></select>
+                            <select name="idformacion" id="idformacion" class="form-select" required>
+                                <option value="sin_valor" disabled selected>-- Selecciona un valor --</option>
+                                @foreach ($formaciones as $formacion)
+                                    <option value="{{$formacion->id}}" {{old('idformacion') === $formacion->id ? 'selected' : ''}}>{{$formacion->denominacion}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Curso</label>
                         <div>
-                            <input type="number" step="1" class="form-control" name="curso" id="curso" placeholder="Introduce el curso..." min="1" required>
+                            <input type="number" step="1" class="form-control" name="curso" id="curso" placeholder="Introduce el curso..." 
+                            min="1" required value="{{old('curso')}}">
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Horas</label>
                         <div>
-                            <input type="number" step="1" name="horas" id="horas" class="form-control" placeholder="Introduce el número de horas..." required min="1">
+                            <input type="number" step="1" name="horas" id="horas" class="form-control" placeholder="Introduce el número de horas..." 
+                            required min="1" value="{{old('horas')}}">
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Especialidad</label>
                         <div>
-                            <input type="text" class="form-control" name="especialidad" id="especialidad" placeholder="Introduce la especialidad..." maxlength="100" minlength="1" required>
+                            <input type="text" class="form-control" name="especialidad" id="especialidad" placeholder="Introduce la especialidad..." 
+                            maxlength="100" minlength="1" required value="{{old('especialidad')}}">
                         </div>
                     </div>
                     <div class="card-footer text-end">
