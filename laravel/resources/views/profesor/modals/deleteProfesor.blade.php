@@ -14,7 +14,7 @@
                     <path d="M12 9v4" />
                     <path d="M12 17h.01" />
                 </svg>
-                <h3>Estás seguro?</h3>
+                <h3>¿Estás seguro?</h3>
                 <div class="text-muted">¿Deseas borrar el profesor <span class="font-weight-bold"
                         id="nombre-profesor"></span>?</div>
             </div>
@@ -44,14 +44,14 @@
 <script>
     // Funcionalidad para borrar profesor
     const deleteModal = document.getElementById('deleteProfesorModal');
-    const siglasProfesor = document.getElementById('nombre-profesor');
+    const nombreProfesor = document.getElementById('nombre-profesor');
     const formDelete = document.getElementById('deleteForm');
 
     deleteModal.addEventListener('show.bs.modal', event => {
-        let siglas = event.relatedTarget.dataset.siglas;
+        let nombre = event.relatedTarget.dataset.nombre;
         let url = event.relatedTarget.dataset.url;
 
-        siglasProfesor.innerText = siglas;
+        nombreProfesor.innerText = nombre;
         formDelete.action = url;
     });
 </script>

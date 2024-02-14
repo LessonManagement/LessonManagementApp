@@ -175,16 +175,108 @@
 </ul>
 @endsection
 
+@include('profesor.modals.deleteProfesor')
+
 @section('main-content')
 <div class="page-header d-print-none">
     <div class="container-xl">
-        <div class="bread-crumbs">
+        <div class="bread-crumbs mb-5">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ urL('profesor') }}">Profesor</a></li>
                 <li class="breadcrumb-item active"><a href="{{ url('profesor/{profesor}/edit') }}">Editar profesor</a></li>
             </ol>
         </div>
+        <div class="card-header">
+            <h2 class="page-title">Editar profesor: {{ $profesor->nombre }}</h2>
+        </div>
     </div>
 </div>
+<div class="page-body">
+        <div class="container-xl">
+            <form class="card" action="{{ url('profesor/' . $profesor->id) }}" method="post">
+
+                @method('put')    
+                @csrf
+                
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label required">Usuario de Séneca</label>
+                        <div>
+                            <input type="text" class="form-control" name="seneca_username" id="seneca_username" placeholder="Introduce el usuario de séneca..."
+                            value="{{ old('seneca_username', $profesor->seneca_username) }}" maxlength="20" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Nombre</label>
+                        <div>
+                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Introduce el nombre..." 
+                            value="{{ old('nombre', $profesor->nombre) }}" maxlength="100" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Primer apellido</label>
+                        <div>
+                            <input type="text" class="form-control" name="apellido1" id="apellido1" placeholder="Introduce el primer apellido..." 
+                            value="{{ old('apellido1', $profesor->apellido1) }}" maxlength="100" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Segundo apellido</label>
+                        <div>
+                            <input type="text" class="form-control" name="apellido2" id="apellido2" placeholder="Introduce el segundo apellido..." 
+                            value="{{ old('apellido2', $profesor->apellido2) }}" maxlength="100" minlength="1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Email</label>
+                        <div>
+                            <input type="text" class="form-control" name="email" id="email" placeholder="Introduce el email..." 
+                            value="{{ old('email', $profesor->email) }}" maxlength="120" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Especialidad</label>
+                        <div>
+                            <input type="text" class="form-control" name="especialidad" id="especialidad" placeholder="Introduce la especialidad..." 
+                            value="{{ old('especialidad', $profesor->especialidad) }}" maxlength="100" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-primary">Editar profesor</button>
+                    </div>
+            </form>
+            <div class="row g-2">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="{{ url()->previous() }}" class="btn btn-info w-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 14l-4 -4l4 -4" />
+                            <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
+                        </svg>
+                        Volver
+                    </a>
+                </div>
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <button type="button" form="deleteProfesorForm" class="btn btn-danger w-100"
+                        data-url="{{ url('profesor/' . $profesor->id) }}" data-nombre="{{ $profesor->nombre }}"
+                        data-bs-toggle="modal" data-bs-target="#deleteProfesorModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 7l16 0" />
+                            <path d="M10 11l0 6" />
+                            <path d="M14 11l0 6" />
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                        </svg>
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
