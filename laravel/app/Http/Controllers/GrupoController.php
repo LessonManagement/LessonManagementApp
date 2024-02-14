@@ -22,18 +22,17 @@ class GrupoController extends Controller
     public function index()
     {
         $rpp = 5;
-        $grupoQuery = DB::table('modulo')
-        ->join('modulo_formacion', 'modulo.id', '=', 'modulo_formacion.idmodulo')
-        ->join('formacion', 'modulo_formacion.idformacion', '=', 'formacion.id')
-        ->select(
-            'modulo.id AS id',
-            'formacion.denominacion AS formacion',
-            'modulo.denominacion AS denominacion',
-            'modulo.siglas AS siglas',
-            'modulo.curso AS curso',
-            'modulo.horas AS horas',
-            'modulo.especialidad AS especialidad'
-        );
+        $grupoQuery = DB::table('grupo')
+            ->join('grupo_formacion', 'grupo.id', '=', 'grupo_formacion.idgrupo')
+            ->join('formacion', 'grupo_formacion.idformacion', '=', 'formacion.id')
+            ->select(
+                'grupo.id AS id',
+                'formacion.denominacion AS formacion',
+                'grupo.denominacion AS denominacion',
+                'grupo.curso_escolar AS curso_escolar',
+                'grupo.turno AS turno',
+                'grupo.curso AS curso'
+            );
         $grupos = $grupoQuery->paginate($rpp);
         return view('grupo.index',['grupos' => $grupos]);
     }
