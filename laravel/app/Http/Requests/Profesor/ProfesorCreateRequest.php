@@ -29,14 +29,26 @@ class ProfesorCreateRequest extends FormRequest
     function messages() {
         $required = 'El campo :attribute es obligatorio';
         $unique = 'El nombre escrito en :attribute ya está registrado';
+        $email = 'El email no tiene un formato válido';
+        $max = "Te has pasado del máximo de carácteres permitidos";
         return [
             'seneca_username.required' => $required,
             'seneca_username.unique'   => $unique,
-            'nombre'                   => $required,
-            'apellido1'                => $required,
+            'seneca_username.max'      => $max,
+
+            'nombre.required'          => $required,
+            'nombre.max'               => $max,
+
+            'apellido1.required'       => $required,
+            'apellido1.max'            => $max,
+
             'email.required'           => $required,
             'email.unique'             => $unique,
-            'especialidad'             => $required,
+            'email.max'                => $max,
+            'email.email'              => $email,
+
+            'especialidad.required'    => $required,
+            'especialidad.max'         => $max,
         ];
     }
 
@@ -52,7 +64,7 @@ class ProfesorCreateRequest extends FormRequest
             'nombre'            => 'required|string|min:1|max:100',
             'apellido1'         => 'required|string|min:1|max:100',
             'apellido2'         => 'nullable|string|min:1|max:100',
-            'email'             => 'required|string|min:1|max:120|unique:profesor',
+            'email'             => 'required|email|min:1|max:120|unique:profesor',
             'especialidad'      => 'required|string|min:1|max:100',
         ];
     }

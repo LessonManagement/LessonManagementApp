@@ -132,8 +132,7 @@
             data-bs-auto-close="outside" role="button" aria-expanded="false">
             <span
                 class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-shield" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 21v-2a4 4 0 0 1 4 -4h2" /><path d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" /><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /></svg>
-            </span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" /><path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" /></svg>            </span>
             <span class="nav-link-title">
                 Lección
             </span>
@@ -201,43 +200,61 @@
                         <label class="form-label required">Usuario de Séneca</label>
                         <div>
                             <input type="text" class="form-control" name="seneca_username" id="seneca_username" placeholder="Introduce el usuario de séneca..."
-                            maxlength="20" minlength="1" required>
+                            maxlength="20" minlength="1" required value="{{ old('seneca_username') }}">
                         </div>
+                        @error('seneca_username')                                     
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror 
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Nombre</label>
                         <div>
                             <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Introduce el nombre..." 
-                            maxlength="100" minlength="1" required>
+                            maxlength="100" minlength="1" required value="{{ old('nombre') }}">
                         </div>
+                        @error('nombre')                                     
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror 
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Primer apellido</label>
                         <div>
                             <input type="text" class="form-control" name="apellido1" id="apellido1" placeholder="Introduce el primer apellido..." 
-                            maxlength="100" minlength="1" required>
+                            maxlength="100" minlength="1" required value="{{ old('apellido1') }}">
                         </div>
+                        @error('apellido1')                                     
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror 
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Segundo apellido</label>
                         <div>
                             <input type="text" class="form-control" name="apellido2" id="apellido2" placeholder="Introduce el segundo apellido..." 
-                            maxlength="100" minlength="1">
+                            maxlength="100" minlength="1" value="{{ old('apellido2') }}">
                         </div>
+                        @error('apellido2')                                     
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror 
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Email</label>
                         <div>
                             <input type="text" class="form-control" name="email" id="email" placeholder="Introduce el email..." 
-                            maxlength="120" minlength="1" required>
+                            maxlength="120" minlength="1" required value="{{ old('email') }}">
                         </div>
+                        @error('email')                                     
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror 
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Especialidad</label>
                         <div>
                             <input type="text" class="form-control" name="especialidad" id="especialidad" placeholder="Introduce la especialidad..." 
-                            maxlength="100" minlength="1" required>
+                            maxlength="100" minlength="1" required value="{{ old('especialidad') }}">
                         </div>
+                        @error('especialidad')                                     
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror 
                     </div>
                     <div class="card-footer text-end">
                         <button type="submit" class="btn btn-primary">Crear profesor</button>

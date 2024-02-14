@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('seneca_username', 20)->unique();
             $table->string('nombre', 100);
             $table->string('apellido1', 100);
-            $table->string('apellido2', 100);
+            $table->string('apellido2', 100)->nullable();
             $table->string('email', 120)->unique();
             $table->string('especialidad', 100);
             $table->timestamps();
