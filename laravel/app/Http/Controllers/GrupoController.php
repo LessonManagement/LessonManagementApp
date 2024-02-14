@@ -58,10 +58,10 @@ class GrupoController extends Controller
         $grupo = new Grupo($request->all());
         try{
             $grupo->save();
-
-            $result = DB::table('grupo_formacion')->insert([
-                'idgrupo' => $grupo->id,
-                'idformacion' =>$request->idformacion]);
+            $grupo->formaciones()->attach($grupo->idformacion);
+            // $result = DB::table('grupo_formacion')->insert([
+            //     'idgrupo' => $grupo->id,
+            //     'idformacion' =>$request->idformacion]);
             
         }catch(\Exception $e){
             return back()->withInput()->withErrors(['message'=> 'EL grupo no se ha podido gruardar corractamente.']); 
