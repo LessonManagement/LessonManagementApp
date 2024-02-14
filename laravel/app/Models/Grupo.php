@@ -11,7 +11,7 @@ class Grupo extends Model
 
     protected $table = 'grupo';
     
-    protected $fillable = ['curso_escolar', 'idformacion', 'curso', 'horas', 'especialidad'];
+    protected $fillable = ['curso_escolar', 'idformacion', 'curso', 'denominacion','turno' ];
 
     // Relación belongstomany tabla pivot grupo_formacion
     function formaciones() {
