@@ -7,6 +7,7 @@ use App\Models\Grupo;
 use App\Models\Formacion;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\grupo\GrupoCreateRequest;
+use App\Http\Requests\grupo\GrupoEditRequest;
 
 class GrupoController extends Controller
 {
@@ -84,7 +85,7 @@ class GrupoController extends Controller
     /**
      * En este metodo deberia llegar por el request el id de formacion
      */
-    public function update(Request $request, Grupo $grupo)
+    public function update(GrupoEditRequest $request, Grupo $grupo)
     {
         
         try{

@@ -9,11 +9,11 @@ class GrupoCreateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'curso_escolar'     => 'curso escolar del grupo',
-            'idformacion'       => 'ancho del producto',
-            'curso'             => 'estado del producto',
-            'denominacion'      => 'fecha de alta del producto',
-            'turno'             => 'nombre del producto',
+            'curso_escolar'     => 'Periodo escolar',
+            'idformacion'       => 'Denominaacion de la fomacion',
+            'curso'             => 'No sabemos que es todavia',
+            'denominacion'      => 'Nombre del grupo',
+            'turno'             => 'Turno de mañana tarde',
             ];
     }
     /**
@@ -38,12 +38,12 @@ class GrupoCreateRequest extends FormRequest
             
             'idformacion.required'     => $required,
             
-            'curso.integer'   => $integer,
-            'curso.gte'       => $gte,
-            'curso.lte'       => $lte,
+            'curso.integer'        => $integer,
+            'curso.gte'            => $gte,
+            'curso.lte'            => $lte,
             'curso.required'       => $required,
             
-            'denominacio.required'   => $required,
+            'denominacio.required'    => $required,
             'denominacion.unique'     => 'EL nombre tiene que ser unico',
 
             'turno.required'     => $required,
@@ -61,11 +61,11 @@ class GrupoCreateRequest extends FormRequest
     {
         return [
                         //obligatorio|tipo|rango
-            'curso_escolar'      => 'required|gte:0|lte:6',
-            'denominacion'     => 'required|string',
-            'idformacion'    => 'required',
-            'curso' => 'required|gte:0|lte:65535',
-            'turno'    => 'required'
+            'curso_escolar'     => 'required|gte:2000|lte:2050',
+            'denominacion'      => 'required|string|min:3|unique:grupo,denominacion,',
+            'idformacion'       => 'required',
+            'curso'             => 'required',
+            'turno'             => 'required'
         ];
     }
 }

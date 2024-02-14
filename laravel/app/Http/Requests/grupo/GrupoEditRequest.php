@@ -4,15 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GrupoEditRequest extends FormRequest
+class GrupoEditRequest extends GrupoCreateRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -21,8 +15,8 @@ class GrupoEditRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $rules = parent::rules();
+        $rules['denominacion'] = 'required|string|min:1|max:20|unique:grupo,denominacion,' . $this->grupo->id;
+        return $rules;
     }
 }

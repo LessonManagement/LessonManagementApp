@@ -173,6 +173,7 @@
                 </div>
             @endif
             @if ($errors->any())
+            @error('message')
                 <div class="container-xl mt-5">
                     <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -187,6 +188,7 @@
                             aria-label="Close"></button>
                     </div>
                 </div>
+            @enderror
             @endif
             @yield('main-content')
             <footer class="footer footer-transparent d-print-none">

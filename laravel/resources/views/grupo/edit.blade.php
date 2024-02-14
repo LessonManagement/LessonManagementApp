@@ -244,6 +244,9 @@
                             value="{{ old('denominacion', $grupo->denominacion) }}" maxlength="150" minlength="1"
                             required>
                     </div>
+                    @error('denominacion') 
+                        <p style="color: #c62828; font-size: .9rem">{{ $message }}</p> 
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label class="form-label required">Denominación formación</label>
@@ -264,6 +267,9 @@
                             placeholder="Introduce el curso escolar..."
                             value="{{ old('curso_escolar', $grupo->curso_escolar) }}" minlength="1" required>
                     </div>
+                    @error('curso_escolar') 
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p> 
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label class="form-label required">Curso</label>
@@ -271,6 +277,9 @@
                         <input type="text" class="form-control" name="curso" id="curso"
                             placeholder="Introduce el curso..." value="{{ old('curso', $grupo->curso) }}" minlength="1">
                     </div>
+                    @error('curso_escolar') 
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p> 
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label class="form-label required">Turno</label>
@@ -279,6 +288,9 @@
                             placeholder="Introduce el turno..." value="{{ old('turno', $grupo->turno) }}" maxlength="20"
                             minlength="1" required>
                     </div>
+                    @error('turno') 
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p> 
+                    @enderror
                 </div>
                 <div class="card-footer text-end">
                     <button type="submit" class="btn btn-primary">Editar grupo</button>
