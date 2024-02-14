@@ -113,7 +113,7 @@ class ModuloController extends Controller
      */
     public function update(ModuloEditRequest $request, Modulo $modulo)
     {
-        //
+        
     }
 
     /**
