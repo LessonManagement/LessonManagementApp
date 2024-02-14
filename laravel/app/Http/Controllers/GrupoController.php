@@ -52,7 +52,6 @@ class GrupoController extends Controller
     public function store(Request $request)
     {
         $grupo = new Grupo($request->all());
-        
         try{
             $grupo->save();
         }catch(\Exception $e){

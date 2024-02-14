@@ -179,12 +179,65 @@
 <div class="page-header d-print-none">
     <div class="container-xl">
         <div class="bread-crumbs">
-            <ol class="breadcrumb">
+            <ol class="breadcrumb mb-5">
                 <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ urL('grupo') }}">Grupo</a></li>
                 <li class="breadcrumb-item active"><a href="{{ url('grupo/create') }}">Añadir grupo</a></li>
             </ol>
         </div>
+        <div class="row g-2">
+                <h2 class="page-title">
+                    Crear grupo
+                </h2>
+        </div>
     </div>
 </div>
+<div class="page-body">
+        <div class="container-xl">
+            <form class="card" action="{{url('grupo')}}" method="post">
+                @csrf
+                <div class="card-header">
+                    <h3 class="card-title">Nuevo Grupo</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label required">Denominación grupo</label>
+                        <div>
+                            <input type="text" class="form-control" name="denominacion" id="denominacion" placeholder="Introduce la denominación del grupo..."
+                            maxlength="150" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Denominación formacion</label>
+                        <div>
+                            <select name="idformacion" id="idformacion" class="form-select">
+                                <option value="1">Pepe</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Curso Escolar</label>
+                        <div>
+                            <input type="number" step="1" name="curso_escolar" id="curso_escolar" class="form-control" placeholder="Introduce el cusro escolar..." required min="1">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label required">Curso</label>
+                        <div>
+                            <input type="number" step="1" name="curso" id="cuaro" class="form-control" placeholder="Introduce el curso..." required min="1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Turno</label>
+                        <div>
+                        <input type="text" class="form-control" name="turno" id="turno" placeholder="Introduce el turno..."
+                            maxlength="20" minlength="1" required></div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-primary">Crear grupo</button>
+                    </div>
+            </form>
+        </div>
+    </div>
 @endsection
