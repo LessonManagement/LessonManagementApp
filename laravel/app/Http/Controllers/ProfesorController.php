@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\profesor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProfesorController extends Controller
 {
@@ -12,9 +13,21 @@ class ProfesorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        // Para todas las rutas debes estar autenticado
+        $this->middleware('verificado');
+        // Para todas las rutas que no sean el listado de lecciones, se debe estar verificado
+        // Para todas las rutas que no sean la index, se debe ser admin o root
+        $this->middleware('admin')->except(['index']);
+    }
+    
     public function index()
     {
-        $profesores = Profesor::all(); //eloquent
+        $rpp = 3;
+        $profesorQuery = DB::table('profesor')
+        ->select('id', 'seneca_username', 'nombre', 'apellido1', 'apellido2', 'email', 'especialidad');
+        $profesores = $profesorQuery->paginate($rpp);
         return view('profesor.index', ['profesores' => $profesores]);
     }
 
