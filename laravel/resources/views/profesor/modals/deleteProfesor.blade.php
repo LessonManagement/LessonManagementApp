@@ -14,7 +14,7 @@
                     <path d="M12 9v4" />
                     <path d="M12 17h.01" />
                 </svg>
-                <h3>Estás seguro?</h3>
+                <h3>¿Estás seguro?</h3>
                 <div class="text-muted">¿Deseas borrar el profesor <span class="font-weight-bold"
                         id="nombre-profesor"></span>?</div>
             </div>
