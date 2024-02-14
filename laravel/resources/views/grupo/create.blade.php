@@ -222,6 +222,7 @@
                         <div>
                             <input type="number" step="1" name="curso_escolar" id="curso_escolar" class="form-control" placeholder="Introduce el cusro escolar..." required min="1">
                         </div>
+            
                     </div>
                     
                     <div class="mb-3">

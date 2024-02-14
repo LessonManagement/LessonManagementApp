@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Grupo;
 use App\Models\Formacion;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\grupo\GrupoCreateRequest;
 
 class GrupoController extends Controller
 {
@@ -51,7 +52,7 @@ class GrupoController extends Controller
     /**
      * Tiene que llegar por el request el id de formacion
      */
-    public function store(Request $request)
+    public function store(GrupoCreateRequest $request)
     {
         $grupo = new Grupo($request->all());
         try{
