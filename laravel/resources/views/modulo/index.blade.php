@@ -223,10 +223,11 @@
                     <li class="breadcrumb-item active"><a href="{{ url('modulo') }}">Módulo</a></li>
                 </ol>
             </div>
-            <div class="row g-2">
-                <h2 class="page-title">
+            <div class="row g-2 d-flex flex-row justify-content-between">
+                <h2 class="page-title col-xl-3">
                     Lista de módulos
                 </h2>
+                <a class="index-create-btn col-xl-2" href="{{url('modulo/create')}}">Añadir módulo</a>
             </div>
         </div>
     </div>
