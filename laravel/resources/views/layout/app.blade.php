@@ -101,7 +101,7 @@
                             <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                                 aria-label="Open user menu">
                                 <span class="avatar avatar-sm"
-                                    style="background-image: url({{url('assets/static/default_avatar.svg')}})"></span>
+                                    style="background-image: url({{ url('assets/static/default_avatar.svg') }})"></span>
                                 <div class="d-none d-xl-block ps-2">
                                     <div>{{ Auth::user()->name }}</div>
                                     <div class="mt-1 small text-muted text-uppercase">{{ Auth::user()->type }}</div>
@@ -173,22 +173,22 @@
                 </div>
             @endif
             @if ($errors->any())
-            @error('message')
-                <div class="container-xl mt-5">
-                    <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                        </svg>
-                        <div style="margin-left: .8rem">
-                            {{ $message }}
+                @error('message')
+                    <div class="container-xl mt-5">
+                        <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                            </svg>
+                            <div style="margin-left: .8rem">
+                                {{ $message }}
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
                         </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                            aria-label="Close"></button>
                     </div>
-                </div>
-            @enderror
+                @enderror
             @endif
             @yield('main-content')
             <footer class="footer footer-transparent d-print-none">
