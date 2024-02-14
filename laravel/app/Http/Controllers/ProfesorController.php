@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\profesor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Profesor\ProfesorCreateRequest;
+use App\Http\Requests\Profesor\ProfesorEditRequest;
 
 class ProfesorController extends Controller
 {
@@ -47,7 +49,7 @@ class ProfesorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProfesorCreateRequest $request)
     {
         //1º generar el objeto
         $profesor = new Profesor($request->all());
@@ -97,7 +99,7 @@ class ProfesorController extends Controller
      * @param  \App\Models\profesor  $profesor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, profesor $profesor)
+    public function update(ProfesorEditRequest $request, profesor $profesor)
     {
         try{
             $result = $profesor->update($request->all());
