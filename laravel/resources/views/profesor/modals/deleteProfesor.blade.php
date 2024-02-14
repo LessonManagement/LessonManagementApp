@@ -44,14 +44,14 @@
 <script>
     // Funcionalidad para borrar profesor
     const deleteModal = document.getElementById('deleteProfesorModal');
-    const siglasProfesor = document.getElementById('nombre-profesor');
+    const nombreProfesor = document.getElementById('nombre-profesor');
     const formDelete = document.getElementById('deleteForm');
 
     deleteModal.addEventListener('show.bs.modal', event => {
-        let siglas = event.relatedTarget.dataset.siglas;
+        let nombre = event.relatedTarget.dataset.nombre;
         let url = event.relatedTarget.dataset.url;
 
-        siglasProfesor.innerText = siglas;
+        nombreProfesor.innerText = nombre;
         formDelete.action = url;
     });
 </script>
