@@ -46,14 +46,3 @@ services:
       - ./laravel/:/var/www
       - ./nginx:/etc/nginx/conf.d
 
-  express:
-    build: 
-      context: ./express/
-      dockerfile: Dockerfile
-    image: nodejs-express
-    restart: unless-stopped
-    ports:
-      - "443:443"
-    volumes:
-      - ./express/:/home/node/app
-      - ./express/node_modules:/home/node/app/node_modules

@@ -87,17 +87,17 @@
                 </svg>
             </span>
             <span class="nav-link-title">
-                Módulo
+                Grupo
             </span>
         </a>
         <div class="dropdown-menu">
             <div class="dropdown-menu-columns">
                 <div class="dropdown-menu-column">
-                    <a class="dropdown-item" href="{{ url('modulo') }}">
-                        Lista de modulos
+                    <a class="dropdown-item" href="{{ url('grupo') }}">
+                        Lista de Grupos
                     </a>
-                    <a class="dropdown-item" href="{{ url('modulo/create') }}">
-                        Añadir modulo
+                    <a class="dropdown-item" href="{{ url('grupo/create') }}">
+                        Añadir Grupos
                     </a>
                 </div>
             </div>
@@ -176,14 +176,124 @@
 @endsection
 
 @section('main-content')
+@include('grupo.modals.deleteGrupo')
 <div class="page-header d-print-none">
     <div class="container-xl">
-        <div class="bread-crumbs">
+        <div class="bread-crumbs mb-5">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
                 <li class="breadcrumb-item active"><a href="{{ urL('grupo') }}">Grupo</a></li>
             </ol>
         </div>
+        <div class="row g-2">
+                <h2 class="page-title">
+                    Lista de módulos
+                </h2>
+        </div>
     </div>
 </div>
+<div class="page-body">
+        <div class="container-xl">
+            {{-- TABLA PARA MOSTRAR GRUPOS --}}
+            <div class="row row-cards">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body border-bottom py-3">
+                            <div class="d-flex">
+                                <div class="text-muted">
+                                    Show
+                                    <div class="mx-2 d-inline-block">
+                                        <select class="form-select form-select-sm" name="rpp" id="rpp"
+                                            aria-label="Rows per page">
+                                            <option value="3">3</option>
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                    </div>
+                                    entries
+                                </div>
+                                <div class="ms-auto text-muted">
+                                    Search:
+                                    <div class="ms-2 d-inline-block">
+                                        <input type="text" class="form-control form-control-sm"
+                                            aria-label="Search invoice">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive" style="min-height: 250px">
+                            <table class="table card-table table-vcenter text-nowrap datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1">ID</th>
+                                        <th>Curso escolar</th>
+                                        <th>Formacion</th>
+                                        <th>Curso</th>
+                                        <th>Denominacion</th>
+                                        <th>Turno</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($grupos as $grupo)
+                                        <tr>
+                                            <td>
+                                                {{ $grupo->id }}
+                                            </td>
+                                            <td>
+                                                {{ $grupo->curso_escolar }}
+                                            </td>
+                                            <td>
+                                                {{ $grupo->formacion }}
+                                            </td>
+                                            <td>
+                                                {{ $grupo->curso }}
+                                            </td>
+                                            <td>
+                                                {{ $grupo->denominacion }}
+                                            </td>
+                                            <td>
+                                                {{ $grupo->turno }}
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="dropdown">
+                                                    <button class="btn dropdown-toggle align-text-top"
+                                                        data-bs-boundary="viewport"
+                                                        data-bs-toggle="dropdown">Acciones</button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item"
+                                                            href="{{ url('grupo/' . $grupo->id) }}"
+                                                            style="transform: translate3d(0px, auto, 0px)">
+                                                            Mostrar
+                                                        </a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ url('grupo/' . $grupo->id . '/edit') }}">
+                                                            Editar
+                                                        </a>
+                                                        <button type="button" form="deleteGrupoForm"
+                                                            class="dropdown-item"
+                                                            data-url="{{ url('grupo/' . $grupo->id) }}"
+                                                            data-denominacion="{{ $grupo->denominacion }}" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteGrupoModal">
+                                                            Eliminar
+                                                        </button>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">Showing <span>1</span> to <span>8</span> of <span>16</span> entries
+                            </p>
+                            {{ $grupos->onEachSide(2)->links() }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
