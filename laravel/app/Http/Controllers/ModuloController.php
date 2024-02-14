@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Modulo\ModuloCreateRequest;
+use App\Http\Requests\Modulo\ModuloEditRequest;
 use App\Models\Formacion;
 use App\Models\Modulo;
 use Illuminate\Http\Request;
@@ -55,28 +57,21 @@ class ModuloController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ModuloCreateRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'idformacion' => 'required|integer',
-        ]);
+        $object = new Modulo($request->all());
 
-        if ($validator->fails()) {
-            return back()->withInput()->withErrors(['message' => $validator->getMessageBag()]);
-        } else {
-            $object = new Modulo($request->all());
-
-            try {
-                $result = $object->save();
-                // Guardamos la relacion entre formacion y modulo
-                $object->formaciones()->attach($object->idformacion);
-                // Donde redirigirá después de crear
-                $target = 'modulo/' . $object->id;
-                return redirect($target)->with(['message' => 'Módulo creado correctamente.']);
-            } catch (\Exception $e) {
-                return back()->withInput()->withErrors(['message' => 'El módulo no ha sido creado correctamente.']);
-            }
+        try {
+            $result = $object->save();
+            // Guardamos la relacion entre formacion y modulo
+            $object->formaciones()->attach($object->idformacion);
+            // Donde redirigirá después de crear
+            $target = 'modulo/' . $object->id;
+            return redirect($target)->with(['message' => 'Módulo creado correctamente.']);
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors(['message' => 'El módulo no ha sido creado correctamente.']);
         }
+
     }
 
     /**
@@ -112,7 +107,7 @@ class ModuloController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Modulo $modulo)
+    public function update(ModuloEditRequest $request, Modulo $modulo)
     {
         //
     }
