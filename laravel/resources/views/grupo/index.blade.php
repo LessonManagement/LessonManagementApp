@@ -245,7 +245,7 @@
                                                 {{ $grupo->curso_escolar }}
                                             </td>
                                             <td>
-                                                {{ $grupo->idformacion }}
+                                                {{ $grupo->formacion }}
                                             </td>
                                             <td>
                                                 {{ $grupo->curso }}

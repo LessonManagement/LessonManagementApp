@@ -33,7 +33,8 @@ class GrupoController extends Controller
                 'grupo.turno AS turno',
                 'grupo.curso AS curso'
             );
-        $grupos = $grupoQuery->paginate($rpp);
+        $grupos = $grupoQuery->paginate($rpp); 
+        //$grupos = Grupo::all();
         return view('grupo.index',['grupos' => $grupos]);
     }
 
