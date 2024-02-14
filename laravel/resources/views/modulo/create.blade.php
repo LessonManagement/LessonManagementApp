@@ -230,25 +230,30 @@
     </div>
     <div class="page-body">
         <div class="container-xl">
-            <form class="card" action="{{url('modulo')}}" method="post">
+            <form class="card" action="{{ url('modulo') }}" method="post">
                 @csrf
-                <div class="card-header">
-                    <h3 class="card-title">Nuevo módulo</h3>
-                </div>
                 <div class="card-body">
                     <div class="mb-3">
                         <label class="form-label required">Denominación</label>
                         <div>
-                            <input type="text" class="form-control" name="denominacion" id="denominacion" placeholder="Introduce la denominación..."
-                            maxlength="100" minlength="1" required value="{{old('denominacion')}}">
+                            <input type="text" class="form-control" name="denominacion" id="denominacion"
+                                placeholder="Introduce la denominación..." maxlength="101" minlength="1" required
+                                value="{{ old('denominacion') }}">
                         </div>
+                        @error('denominacion')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Siglas</label>
                         <div>
-                            <input type="text" class="form-control" name="siglas" id="siglas" placeholder="Introduce las siglas..."
-                            maxlength="10" minlength="1" required value="{{old('siglas')}}">
+                            <input type="text" class="form-control" name="siglas" id="siglas"
+                                placeholder="Introduce las siglas..." maxlength="10" minlength="1" required
+                                value="{{ old('siglas') }}">
                         </div>
+                        @error('siglas')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Formación</label>
@@ -256,31 +261,47 @@
                             <select name="idformacion" id="idformacion" class="form-select" required>
                                 <option value="sin_valor" disabled selected>-- Selecciona un valor --</option>
                                 @foreach ($formaciones as $formacion)
-                                    <option value="{{$formacion->id}}" {{old('idformacion') === $formacion->id ? 'selected' : ''}}>{{$formacion->denominacion}}</option>
+                                    <option value="{{ $formacion->id }}"
+                                        {{ old('idformacion') === $formacion->id ? 'selected' : '' }}>
+                                        {{ $formacion->denominacion }}</option>
                                 @endforeach
                             </select>
                         </div>
+                        @error('idformacion')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Curso</label>
                         <div>
-                            <input type="number" step="1" class="form-control" name="curso" id="curso" placeholder="Introduce el curso..." 
-                            min="1" required value="{{old('curso')}}">
+                            <input type="number" step="1" class="form-control" name="curso" id="curso"
+                                placeholder="Introduce el curso..." min="1" required value="{{ old('curso') }}">
                         </div>
+                        @error('curso')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Horas</label>
                         <div>
-                            <input type="number" step="1" name="horas" id="horas" class="form-control" placeholder="Introduce el número de horas..." 
-                            required min="1" value="{{old('horas')}}">
+                            <input type="number" step="1" name="horas" id="horas" class="form-control"
+                                placeholder="Introduce el número de horas..." required min="1"
+                                value="{{ old('horas') }}">
                         </div>
+                        @error('horas')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Especialidad</label>
                         <div>
-                            <input type="text" class="form-control" name="especialidad" id="especialidad" placeholder="Introduce la especialidad..." 
-                            maxlength="100" minlength="1" required value="{{old('especialidad')}}">
+                            <input type="text" class="form-control" name="especialidad" id="especialidad"
+                                placeholder="Introduce la especialidad..." maxlength="100" minlength="1" required
+                                value="{{ old('especialidad') }}">
                         </div>
+                        @error('especialidad')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="card-footer text-end">
                         <button type="submit" class="btn btn-primary">Crear módulo</button>
