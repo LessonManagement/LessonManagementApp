@@ -93,11 +93,11 @@
         <div class="dropdown-menu">
             <div class="dropdown-menu-columns">
                 <div class="dropdown-menu-column">
-                    <a class="dropdown-item" href="{{ url('profesor') }}">
-                        Lista de profesores
+                    <a class="dropdown-item" href="{{ url('modulo') }}">
+                        Lista de módulos
                     </a>
-                    <a class="dropdown-item" href="{{ url('profesor/create') }}">
-                        Añadir profesor
+                    <a class="dropdown-item" href="{{ url('modulo/create') }}">
+                        Añadir módulo
                     </a>
                 </div>
             </div>
@@ -251,7 +251,7 @@
                                                 {{ $profesor->nombre }}
                                             </td>
                                             <td>
-                                                {{ $profesor->apellido1 }}&nbsp;{{ $profesor->apellido2}}
+                                                {{ $profesor->apellido1 }}&nbsp;{{ $profesor->apellido2 }}
                                             </td>
                                             <td>
                                                 {{ $profesor->email }}
