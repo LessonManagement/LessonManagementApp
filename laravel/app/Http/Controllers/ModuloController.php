@@ -101,7 +101,11 @@ class ModuloController extends Controller
      */
     public function edit(Modulo $modulo)
     {
-        return view('modulo.edit', ['modulo' => $modulo]);
+        $formaciones = Formacion::all();
+        return view('modulo.edit', [
+            'modulo' => $modulo,
+            'formaciones' => $formaciones
+        ]);
     }
 
     /**
