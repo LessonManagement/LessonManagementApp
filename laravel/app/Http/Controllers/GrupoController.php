@@ -70,13 +70,14 @@ class GrupoController extends Controller
 
     public function show(Grupo $grupo)
     {
-        return view('grupo.show',['grupo' => $grupo]);
+        $formacion = Formacion::find($grupo->idformacion);
+        return view('grupo.show',['grupo' => $grupo,'formacion' => $formacion]);
     }
 
     public function edit(Grupo $grupo)
     {
-        
-        return view('grupo.edit',['grupo' => $grupo]);
+        $denomiFormacion = Formacion::all();
+        return view('grupo.edit',['grupo' => $grupo, 'denomiFormacion' => $denomiFormacion]);
     }
 
     /**
@@ -87,7 +88,7 @@ class GrupoController extends Controller
         
         try{
             
-            $question->update($request->all());
+            $grupo->update($request->all());
     
         }catch(\Exception $e){
             
