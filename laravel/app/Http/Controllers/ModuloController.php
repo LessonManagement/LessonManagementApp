@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Formacion;
 use App\Models\Modulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ModuloController extends Controller
 {
@@ -46,7 +48,8 @@ class ModuloController extends Controller
      */
     public function create()
     {
-        return view('modulo.create');
+        $formaciones = Formacion::all();
+        return view('modulo.create', ['formaciones' => $formaciones]);
     }
 
     /**
@@ -54,7 +57,26 @@ class ModuloController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'idformacion' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()->withErrors(['message' => $validator->getMessageBag()]);
+        } else {
+            $object = new Modulo($request->all());
+
+            try {
+                $result = $object->save();
+                // Guardamos la relacion entre formacion y modulo
+                $object->formaciones()->attach($object->idformacion);
+                // Donde redirigirá después de crear
+                $target = 'modulo/' . $object->id;
+                return redirect($target)->with(['message' => 'Módulo creado correctamente.']);
+            } catch (\Exception $e) {
+                return back()->withInput()->withErrors(['message' => 'El módulo no ha sido creado correctamente.']);
+            }
+        }
     }
 
     /**
@@ -62,7 +84,7 @@ class ModuloController extends Controller
      */
     public function show(Modulo $modulo)
     {
-        $modulo = DB::table('modulo')
+        $modulo_query = DB::table('modulo')
             ->join('modulo_formacion', 'modulo.id', '=', 'modulo_formacion.idmodulo')
             ->join('formacion', 'modulo_formacion.idformacion', '=', 'formacion.id')
             ->select(
@@ -74,8 +96,9 @@ class ModuloController extends Controller
                 'modulo.horas AS horas',
                 'modulo.especialidad AS especialidad'
             )
-            ->where('modulo.id', '=', $modulo->id)->get();
-        return view('modulo.show', ['modulo' => $modulo[0]]);
+            ->where('modulo.id', $modulo->id);
+        $modulo_obj = $modulo_query->get();
+        return view('modulo.show', ['modulo' => $modulo_obj[0]]);
     }
 
     /**
