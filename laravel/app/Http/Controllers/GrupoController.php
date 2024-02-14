@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Grupo;
+use App\Models\Formacion;
 use Illuminate\Support\Facades\DB;
 
 class GrupoController extends Controller
@@ -43,7 +44,8 @@ class GrupoController extends Controller
      */
     public function create()
     {
-        return view('grupo.create');
+        $denomiFormacion = Formacion::all();
+        return view('grupo.create', ['denomiFormacion' => $denomiFormacion]);
     }
 
     /**
@@ -54,11 +56,16 @@ class GrupoController extends Controller
         $grupo = new Grupo($request->all());
         try{
             $grupo->save();
+
+            $result = DB::table('grupo_formacion')->insert([
+                'idgrupo' => $grupo->id,
+                'idformacion' =>$request->idformacion]);
+            
         }catch(\Exception $e){
             return back()->withInput()->withErrors(['message'=> 'EL grupo no se ha podido gruardar corractamente.']); 
         }
         
-        return redirect('question')->with(['message'=>'EL grupo se ha guardado correctamente']);
+        return redirect('grupo')->with(['message'=>'EL grupo se ha guardado correctamente']);
     }
 
     public function show(Grupo $grupo)

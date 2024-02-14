@@ -211,7 +211,9 @@
                         <label class="form-label required">Denominación formacion</label>
                         <div>
                             <select name="idformacion" id="idformacion" class="form-select">
-                                <option value="1">Pepe</option>
+                                @foreach($denomiFormacion as $formacion)
+                                <option value="{{$formacion->id}}">{{$formacion->denominacion}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
