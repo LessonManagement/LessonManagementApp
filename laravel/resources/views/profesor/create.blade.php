@@ -178,13 +178,70 @@
 @section('main-content')
 <div class="page-header d-print-none">
     <div class="container-xl">
-        <div class="bread-crumbs">
+        <div class="bread-crumbs mb-5">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ urL('profesor') }}">Profesor</a></li>
                 <li class="breadcrumb-item active"><a href="{{ url('profesor/create') }}">Añadir profesor</a></li>
             </ol>
         </div>
+        <div class="card-header">
+            <h2 class="page-title">Nuevo profesor</h2>
+        </div>
     </div>
 </div>
+<div class="page-body">
+        <div class="container-xl">
+            <form class="card" action="{{ url('profesor') }}" method="post">
+
+                @csrf
+
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label required">Usuario de Séneca</label>
+                        <div>
+                            <input type="text" class="form-control" name="seneca_username" id="seneca_username" placeholder="Introduce el usuario de séneca..."
+                            maxlength="20" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Nombre</label>
+                        <div>
+                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Introduce el nombre..." maxlength="100" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Primer apellido</label>
+                        <div>
+                            <input type="text" class="form-control" name="apellido1" id="apellido1" placeholder="Introduce el primer apellido..." 
+                            maxlength="100" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Segundo apellido</label>
+                        <div>
+                            <input type="text" class="form-control" name="apellido2" id="apellido2" placeholder="Introduce el segundo apellido..." 
+                            maxlength="100" minlength="1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Email</label>
+                        <div>
+                            <input type="text" class="form-control" name="email" id="email" placeholder="Introduce el email..." 
+                            maxlength="120" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Especialidad</label>
+                        <div>
+                            <input type="text" class="form-control" name="especialidad" id="especialidad" placeholder="Introduce la especialidad..." 
+                            maxlength="100" minlength="1" required>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-primary">Crear profesor</button>
+                    </div>
+            </form>
+        </div>
+    </div>
 @endsection
