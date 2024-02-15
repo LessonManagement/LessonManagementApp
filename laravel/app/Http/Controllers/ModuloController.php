@@ -114,7 +114,16 @@ class ModuloController extends Controller
     public function update(ModuloEditRequest $request, Modulo $modulo)
     {
         try {
+            // Obtenemos formacion antiua
+            $old_formacion = $modulo->idformacion;
+            // Actualizamos el módulo
             $result = $modulo->update($request->all());
+            // Obtenermos el objeto de la tabla modulo formacion
+            $affected = DB::table('modulo_formacion')
+                            ->where('idmodulo', $modulo->id)
+                            ->where('idformacion', $old_formacion)
+                            ->update(['idformacion' => $modulo->idformacion]);
+
             return redirect('modulo')->with(['message' => 'El módulo se ha actualizado correctamente']);
         } catch (\Exception $e) {
             return back()->withInput()->withErrors(['message' => 'El módulo no se ha actualizado correctamente']);
