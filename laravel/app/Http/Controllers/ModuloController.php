@@ -12,6 +12,31 @@ use Illuminate\Support\Facades\Validator;
 
 class ModuloController extends Controller
 {
+    const RPP = 10;
+    const ORDERBY = 'modulo.denominacion';
+    const ORDERTYPE = 'asc';
+    const PARAMS = [
+        'rpp' => [
+            self::RPP => self::RPP,
+            5 => 0,
+            25 => 0,
+            50 => 0,
+            100 => 0
+        ],
+        'orderBy' => [
+            self::ORDERBY => self::ORDERBY,
+            'formacion.denominacion' => 0,
+            'modulo.id' => 0,
+            'modulo.siglas' => 0,
+            'modulo.curso' => 0,
+            'modulo.horas' => 0,
+            'modulo.especialidad' => 0,
+        ],
+        'orderType' => [
+            self::ORDERTYPE => self::ORDERTYPE,
+            'desc' => 0
+        ]
+    ];
     public function __construct()
     {
         // Para todas las rutas debes estar autenticado
@@ -26,7 +51,11 @@ class ModuloController extends Controller
      */
     public function index(Request $request)
     {
-        $rpp = 5;
+        $rpp = self::getFromRequest($request, 'rpp', self::RPP);
+        $orderBy = self::getFromRequest($request, 'orderBy', self::ORDERBY);
+        $orderType = self::getFromRequest($request, 'orderType', self::ORDERTYPE);
+        $q = $request->q;
+
         // ['idformacion', 'denominacion', 'siglas', 'curso', 'horas', 'especialidad']
         $moduloQuery = DB::table('modulo')
             ->join('modulo_formacion', 'modulo.id', '=', 'modulo_formacion.idmodulo')
@@ -41,8 +70,64 @@ class ModuloController extends Controller
                 'modulo.especialidad AS especialidad'
             );
 
-        $modulos = $moduloQuery->paginate($rpp);
-        return view('modulo.index', ['modulos' => $modulos]);
+        // Comprobamos la query (q)
+        if ($q != null) {
+            $moduloQuery = $moduloQuery->where('modulo.denominacion', 'like', '%' . $q . '%')
+                ->orWhere('formacion.denominacion', 'like', '%' . $q . '%')
+                ->orWhere('modulo.siglas', 'like', '%' . $q . '%')
+                ->orWhere('modulo.curso', 'like', '%' . $q . '%')
+                ->orWhere('modulo.horas', 'like', '%' . $q . '%')
+                ->orWhere('modulo.especialidad', 'like', '%' . $q . '%');
+        }
+
+        $modulos = $moduloQuery->orderBy($orderBy, $orderType)
+            ->orderBy(self::ORDERBY, self::ORDERTYPE)
+            ->paginate($rpp);
+
+        // Recuento total de modulos
+        $count_query = DB::select('select count(*) as modulo_count from modulo');
+        $modulo_count = $count_query[0]->modulo_count;
+
+        // Recuento de modulos mostrados
+        if($modulos->currentPage() === 1) {
+            $init_mod = 1;
+            $last_mod_page = $modulos->perPage();
+        } else {
+            $last_mod_page = $modulos->currentPage() * $modulos->perPage();
+            if($modulo_count < $last_mod_page) {
+                $last_mod_page = $modulo_count;
+            }
+            $init_mod = ($modulos->currentPage() * $modulos->perPage()) - $modulos->perPage();
+        }
+            
+        return view('modulo.index', [
+            'modulos' => $modulos,
+            'orderBy' => $orderBy,
+            'orderType' => $orderType,
+            'q' => $q,
+            'rpps' => self::getRpp(),
+            'rpp' => $rpp,
+            'modulo_count' => $modulo_count,
+            'init_mod' => $init_mod,
+            'last_mod_page' => $last_mod_page
+        ]);
+    }
+
+    private static function getRpp()
+    {
+        return [5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100];
+    }
+
+    private static function getFromRequest($request, $name, $defaultValue)
+    {
+        $value = array_key_first(self::PARAMS[$name]);
+        if ($request->$name != null) {
+            $value = $request->$name;
+        }
+        if (!isset(self::PARAMS[$name][$value])) {
+            $value = array_key_first(self::PARAMS[$name]);
+        }
+        return $value;
     }
 
     /**
@@ -120,9 +205,9 @@ class ModuloController extends Controller
             $result = $modulo->update($request->all());
             // Obtenermos el objeto de la tabla modulo formacion
             $affected = DB::table('modulo_formacion')
-                            ->where('idmodulo', $modulo->id)
-                            ->where('idformacion', $old_formacion)
-                            ->update(['idformacion' => $modulo->idformacion]);
+                ->where('idmodulo', $modulo->id)
+                ->where('idformacion', $old_formacion)
+                ->update(['idformacion' => $modulo->idformacion]);
 
             return redirect('modulo')->with(['message' => 'El módulo se ha actualizado correctamente']);
         } catch (\Exception $e) {
