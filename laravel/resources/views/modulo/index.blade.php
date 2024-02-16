@@ -535,7 +535,8 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Showing <span>{{ $init_mod }}</span> to <span>{{ $last_mod_page }}</span> of
+                            <p class="m-0 text-muted">Showing <span>{{ $init_mod }}</span> to
+                                <span>{{ $last_mod_page }}</span> of
                                 <span>{{ $modulo_count }}</span> entries
                             </p>
                             {{ $modulos->appends(['rpp' => $rpp, 'orderBy' => $orderBy, 'orderType' => $orderType, 'q' => $q])->onEachSide(2)->links() }}
