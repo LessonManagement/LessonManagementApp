@@ -264,7 +264,7 @@
                                         <form action="" id="search">
                                             <input type="hidden" name="orderBy" value="{{ $orderBy }}" />
                                             <input type="hidden" name="orderType" value="{{ $orderType }}" />
-                                            <input type="hidden" name="rowPerPage" value="{{ $rpp }}" />
+                                            <input type="hidden" name="rpp" value="{{ $rpp }}" />
                                         </form>
                                     </div>
                                 </div>
