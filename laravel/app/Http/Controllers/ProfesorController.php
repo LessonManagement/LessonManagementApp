@@ -66,7 +66,7 @@ class ProfesorController extends Controller
         }
 
         $profesores = $profesorQuery->orderBy($orderBy, $orderType)
-        ->orderBy(self::ORDERBY, self::ORDERTYPE)->paginate($rpp);
+            ->orderBy(self::ORDERBY, self::ORDERTYPE)->paginate($rpp);
 
         // Recuento total de modulos
         $count_query = DB::select('select count(*) as profesor_count from profesor');
