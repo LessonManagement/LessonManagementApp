@@ -231,9 +231,6 @@
     <div class="container-xl">
         <form class="card" action="{{url('grupo')}}" method="post">
             @csrf
-            <div class="card-header">
-                <h3 class="card-title">Nuevo Grupo</h3>
-            </div>
             <div class="card-body">
                 <div class="mb-3">
                     <label class="form-label required">Denominación grupo</label>
