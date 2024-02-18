@@ -75,6 +75,7 @@ class ModuloController extends Controller
             $moduloQuery = $moduloQuery->where('modulo.denominacion', 'like', '%' . $q . '%')
                 ->orWhere('formacion.denominacion', 'like', '%' . $q . '%')
                 ->orWhere('modulo.siglas', 'like', '%' . $q . '%')
+                ->orWhere('modulo.id', 'like', '%' . $q . '%')
                 ->orWhere('modulo.curso', 'like', '%' . $q . '%')
                 ->orWhere('modulo.horas', 'like', '%' . $q . '%')
                 ->orWhere('modulo.especialidad', 'like', '%' . $q . '%');
@@ -89,17 +90,17 @@ class ModuloController extends Controller
         $modulo_count = $count_query[0]->modulo_count;
 
         // Recuento de modulos mostrados
-        if($modulos->currentPage() === 1) {
+        if ($modulos->currentPage() === 1) {
             $init_mod = 1;
             $last_mod_page = $modulos->perPage();
         } else {
             $last_mod_page = $modulos->currentPage() * $modulos->perPage();
-            if($modulo_count < $last_mod_page) {
+            if ($modulo_count < $last_mod_page) {
                 $last_mod_page = $modulo_count;
             }
             $init_mod = ($modulos->currentPage() * $modulos->perPage()) - $modulos->perPage();
         }
-            
+
         return view('modulo.index', [
             'modulos' => $modulos,
             'orderBy' => $orderBy,
