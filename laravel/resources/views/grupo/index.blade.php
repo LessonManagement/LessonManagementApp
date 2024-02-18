@@ -507,6 +507,12 @@
                     </div>
                 </div>
             </div>
+            <script>
+                document.getElementById('rpp').addEventListener('change', () => {
+                    // Envio del formulario
+                    document.getElementById('rowPerPage').submit();
+                })
+            </script>
         </div>
     </div>
 @endsection
