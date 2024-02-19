@@ -1,5 +1,12 @@
 // Coger el ul de navigation para añadirle las clases necesarias
 $(document).ready(() => {
-    $('.pagination').closest('nav').addClass('m-0');
-    $('.pagination').closest('nav').addClass('ms-auto');
+    if (document.title != 'Admin - LessonManagement') {
+        console.log('hola')
+        $('.pagination').closest('nav').addClass('m-0');
+        $('.pagination').closest('nav').addClass('ms-auto');
+    } else {
+        console.log('PRUEBA')
+        $('.pagination').closest('nav').addClass('m-0');
+        $('.pagination').closest('nav').removeClass('ms-auto');
+    }
 });
