@@ -3,15 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.index');
+        $rpp = 4;
+        $q = $request->q;
+
+        $usuarios = DB::table('users')->select('*')->where('type', 'user');
+        $admins = DB::table('users')->select('*')->where('type', '!=', 'user');
+
+        if ($q != null) {
+            $usuarios = $usuarios->where(function ($query) use ($q) {
+                $query->where('name', 'like', '%' . $q . '%')->orWhere('email', 'like', '%' . $q . '%');
+            });
+
+            $admins = $admins->where(function ($query) use ($q) {
+                $query->where('name', 'like', '%' . $q . '%')->orWhere('email', 'like', '%' . $q . '%');
+            });
+        }
+
+        $usuarios = $usuarios->paginate($rpp);
+        $admins = $admins->paginate($rpp);
+
+        $total_users = DB::select('select count(*) as total_users from users');
+        $total_users = $total_users[0]->total_users;
+        return view('admin.index', [
+            'usuarios' => $usuarios,
+            'admins' => $admins,
+            'rpp' => $rpp,
+            'q' => $q,
+            'total_users' => $total_users
+        ]);
     }
 
     /**
@@ -19,7 +48,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.create');   
+        return view('admin.create');
     }
 
     /**
@@ -27,7 +56,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -51,7 +80,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+
     }
 
     /**
@@ -59,6 +88,6 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        
+
     }
 }
