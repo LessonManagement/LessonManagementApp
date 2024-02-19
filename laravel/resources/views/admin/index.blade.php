@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Formación - LessonManagement')
+@section('title', 'Admin - LessonManagement')
 
 @section('menu')
     <ul class="navbar-nav">
@@ -228,13 +228,153 @@
 @endsection
 
 @section('main-content')
+    @include('admin.modals.deleteUser')
+
     <div class="page-header d-print-none">
         <div class="container-xl">
-            <div class="bread-crumbs">
+            <div class="bread-crumbs mb-5">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ urL('formacion') }}">Formación</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ urL('admin') }}">Admin</a></li>
                 </ol>
+            </div>
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">
+                        Usuarios
+                    </h2>
+                    <div class="text-muted mt-1">{{ $total_users }} usuarios registrados</div>
+                </div>
+                <!-- Page title actions -->
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="d-flex">
+                        <input type="search" class="form-control d-inline-block w-9 me-3" aria-label="Search usuario"
+                            id="q" name="q" form="search" placeholder="Buscar usuario...">
+                        <form action="" id="search">
+                            <input type="hidden" name="rpp" value="{{ $rpp }}" />
+                        </form>
+                        <a href="{{ url('admin/create') }}" class="btn btn-primary">
+                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M12 5l0 14" />
+                                <path d="M5 12l14 0" />
+                            </svg>
+                            Nuevo usuario
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-cards mb-5">
+                <h3>Administradores</h3>
+                @foreach ($admins as $admin)
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card">
+                            <div class="card-body p-4 text-center">
+                                <span class="avatar avatar-xl mb-3 rounded"
+                                    style="background-image: url({{ url('assets/static/default_avatar.svg') }})"></span>
+                                <h3 class="m-0 mb-1"><a href="{{ url('admin/' . $admin->id) }}">{{ $admin->name }}</a>
+                                </h3>
+                                <div class="text-muted" style="font-size: .7rem">{{ $admin->email }}</div>
+                                <div class="mt-3">
+                                    @switch($admin->type)
+                                        @case('root')
+                                            <span class="badge bg-purple-lt">Root</span>
+                                        @break
+
+                                        @case('admin')
+                                            <span class="badge bg-green-lt">Admin</span>
+                                        @break
+                                    @endswitch
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <a href="{{ url('admin/' . $admin->id . '/edit') }}" class="card-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-muted" width="24"
+                                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                                        <path d="M13.5 6.5l4 4" />
+                                    </svg>
+                                    Editar
+                                </a>
+                                <a href="#" class="card-btn" data-url="{{ url('admin/' . $admin->id) }}"
+                                    data-nombre="{{ $admin->name }}" data-bs-toggle="modal"
+                                    data-bs-target="#deleteUserModal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-muted" width="24"
+                                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M4 7l16 0" />
+                                        <path d="M10 11l0 6" />
+                                        <path d="M14 11l0 6" />
+                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                    </svg>
+                                    Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="d-flex mt-4 mb-4 justify-content-center admin-pag">
+                {{ $admins->appends(['rpp' => $rpp, 'q' => $q])->onEachSide(2)->links() }}
+            </div>
+            <div class="row g-2 align-items-center">
+                <h3>Usuarios</h3>
+                @foreach ($usuarios as $user)
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card">
+                            <div class="card-body p-4 text-center">
+                                <span class="avatar avatar-xl mb-3 rounded"
+                                    style="background-image: url({{ url('assets/static/default_avatar.svg') }})"></span>
+                                <h3 class="m-0 mb-1"><a href="#">{{ $user->name }}</a></h3>
+                                <div class="text-muted" style="font-size: .7rem">{{ $user->email }}</div>
+                                <div class="mt-3">
+                                    <span class="badge bg-blue-lt">Usuario</span>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <a href="{{ url('admin/' . $user->id . '/edit') }}" class="card-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-muted" width="24"
+                                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                                        <path d="M13.5 6.5l4 4" />
+                                    </svg>
+                                    Editar
+                                </a>
+                                <a href="#" class="card-btn" data-url="{{ url('admin/' . $user->id) }}"
+                                    data-nombre="{{ $user->name }}" data-bs-toggle="modal"
+                                    data-bs-target="#deleteUserModal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-muted" width="24"
+                                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M4 7l16 0" />
+                                        <path d="M10 11l0 6" />
+                                        <path d="M14 11l0 6" />
+                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                    </svg>
+                                    Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="d-flex mt-4 justify-content-center admin-pag">
+                {{ $usuarios->appends(['rpp' => $rpp, 'q' => $q])->onEachSide(2)->links() }}
             </div>
         </div>
     </div>
