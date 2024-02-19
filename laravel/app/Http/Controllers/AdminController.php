@@ -88,6 +88,13 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-
+        $user = User::where('id', $id)->get();
+        $user = $user[0];
+        try {
+            $user->delete();
+            return redirect('admin')->with(['message' => 'El usuario ha sido borrado correctamente.']);
+        } catch (\Exception $e) {
+            return redirect('admin')->withErrors(['message' => 'El usuario no ha sido borrado correctamente.']);
+        }
     }
 }
