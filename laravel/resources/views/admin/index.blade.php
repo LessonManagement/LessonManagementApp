@@ -214,10 +214,10 @@
                     <div class="dropdown-menu-columns">
                         <div class="dropdown-menu-column">
                             <a class="dropdown-item active" href="{{ url('admin') }}">
-                                Lista de administradores
+                                Lista de usuarios
                             </a>
                             <a class="dropdown-item" href="{{ url('admin/create') }}">
-                                Añadir administrador
+                                Añadir usuario
                             </a>
                         </div>
                     </div>
