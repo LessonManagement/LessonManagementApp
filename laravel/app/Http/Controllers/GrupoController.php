@@ -11,6 +11,7 @@ use App\Http\Requests\grupo\GrupoEditRequest;
 
 class GrupoController extends Controller
 {
+    private $turnos = ['Mañana','Tarde','Semi-Presencial'];
     public function __construct()
     {
         // Para todas las rutas debes estar autenticado
@@ -47,7 +48,7 @@ class GrupoController extends Controller
     public function create()
     {
         $denomiFormacion = Formacion::all();
-        return view('grupo.create', ['denomiFormacion' => $denomiFormacion]);
+        return view('grupo.create', ['denomiFormacion' => $denomiFormacion,'turnos'=>$this->turnos]);
     }
 
     /**
@@ -79,12 +80,9 @@ class GrupoController extends Controller
     public function edit(Grupo $grupo)
     {
         $denomiFormacion = Formacion::all();
-        return view('grupo.edit',['grupo' => $grupo, 'denomiFormacion' => $denomiFormacion]);
+        return view('grupo.edit',['grupo' => $grupo, 'denomiFormacion' => $denomiFormacion,'turnos' => $this->turnos]);
     }
 
-    /**
-     * En este metodo deberia llegar por el request el id de formacion
-     */
     public function update(GrupoEditRequest $request, Grupo $grupo)
     {
         
