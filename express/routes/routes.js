@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const path = require('path');
+const passport = require('passport');
 
 // Ruta raíz
 router.get('/', function (req, res) {
@@ -24,9 +25,9 @@ router.get('/login', (req, res) => {
     res.sendFile(path.resolve('views/login.html'))
 })
 
-// Ruta home/main
-router.get('/home', (req, res) => {
-    res.sendFile(path.resolve('views/home.html'))
-})
+// // Ruta home/main
+// router.get('/home', isLoggedIn, (req, res) => {
+//     res.sendFile(path.resolve('views/home.html'))
+// })
 
 module.exports = router;
