@@ -297,11 +297,12 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">Turno</label>
-                        <div>
-                            <input type="text" class="form-control" name="turno" id="turno"
-                                placeholder="Introduce el turno..." maxlength="20" minlength="1" required
-                                value="{{ old('turno') }}">
-                        </div>
+                        <select name="turno" id="turno" class="form-select">
+                                @foreach($turnos as $turno)
+                                    <option
+                                value="{{$turno}}">{{$turno}}</option>
+                            @endforeach
+                        </select>
                         @error('turno')
                             <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
                         @enderror

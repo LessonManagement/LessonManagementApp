@@ -251,112 +251,110 @@
                 @method('put')
                 @csrf
 
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label class="form-label required">Denominación grupo</label>
-                        <div>
-                            <input type="text" class="form-control" name="denominacion" id="denominacion"
-                                placeholder="Introduce la denominación..."
-                                value="{{ old('denominacion', $grupo->denominacion) }}" maxlength="150" minlength="1"
-                                required>
-                        </div>
-                        @error('denominacion')
-                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
-                        @enderror
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label required">Denominación grupo</label>
+                    <div>
+                        <input type="text" class="form-control" name="denominacion" id="denominacion"
+                            placeholder="Introduce la denominación..."
+                            value="{{ old('denominacion', $grupo->denominacion) }}" maxlength="150" minlength="1"
+                            required>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label required">Denominación formación</label>
-                        <div>
-                            <select name="idformacion" id="idformacion" class="form-select"
-                                placeholder="Introduce la formacion...">
-                                @foreach ($denomiFormacion as $formacion)
-                                    <option value="{{ old('idformacion', $formacion->id) }}"
-                                        {{ $formacion->denominacion == $formacion->denominacion ? 'selected' : '' }}>
-                                        {{ $formacion->denominacion }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label required">Curso Escolar</label>
-                        <div>
-                            <input type="number" step="1" class="form-control" name="curso_escolar"
-                                id="curso_escolar" placeholder="Introduce el curso escolar..."
-                                value="{{ old('curso_escolar', $grupo->curso_escolar) }}" minlength="1" required>
-                        </div>
-                        @error('curso_escolar')
-                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label required">Curso</label>
-                        <div>
-                            <input type="text" class="form-control" name="curso" id="curso"
-                                placeholder="Introduce el curso..." value="{{ old('curso', $grupo->curso) }}"
-                                minlength="1">
-                        </div>
-                        @error('curso_escolar')
-                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label required">Turno</label>
-                        <div>
-                            <input type="text" class="form-control" name="turno" id="turno"
-                                placeholder="Introduce el turno..." value="{{ old('turno', $grupo->turno) }}"
-                                maxlength="20" minlength="1" required>
-                        </div>
-                        @error('turno')
-                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="card-footer text-end">
-                        <button type="submit" class="btn btn-primary">Editar grupo</button>
-                    </div>
-            </form>
-            <div class="row g-2">
-                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
-                    <a href="{{ url()->previous() }}" class="btn btn-info w-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up"
-                            width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 14l-4 -4l4 -4" />
-                            <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
-                        </svg>
-                        Volver
-                    </a>
+                    @error('denominacion') 
+                        <p style="color: #c62828; font-size: .9rem">{{ $message }}</p> 
+                    @enderror
                 </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
-                    <a href="{{ url('grupo/' . $grupo->id) }}" class="btn btn-warning w-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24"
-                            height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                            <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                        </svg>
-                        Mostrar
-                    </a>
+                <div class="mb-3">
+                    <label class="form-label required">Denominación formación</label>
+                    <div>
+                        <select name="idformacion" id="idformacion" class="form-select"
+                            placeholder="Introduce la formacion...">
+                            @foreach($denomiFormacion as $formacion)
+                            <option value="{{old('idformacion',$formacion->id)}}" {{ ($formacion->denominacion ==
+                                $formacion->denominacion) ? 'selected': ''}} >{{$formacion->denominacion}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
-                    <button type="button" form="deleteGrupoForm" class="btn btn-danger w-100"
-                        data-url="{{ url('grupo/' . $grupo->id) }}" data-denominacion="{{ $grupo->denominacion }}"
-                        data-bs-toggle="modal" data-bs-target="#deleteGrupoModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24"
-                            height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 7l16 0" />
-                            <path d="M10 11l0 6" />
-                            <path d="M14 11l0 6" />
-                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                        </svg>
-                        Eliminar
-                    </button>
+                <div class="mb-3">
+                    <label class="form-label required">Curso Escolar</label>
+                    <div>
+                        <input type="number" step="1" class="form-control" name="curso_escolar" id="curso_escolar"
+                            placeholder="Introduce el curso escolar..."
+                            value="{{ old('curso_escolar', $grupo->curso_escolar) }}" minlength="1" required>
+                    </div>
+                    @error('curso_escolar') 
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p> 
+                    @enderror
                 </div>
+                <div class="mb-3">
+                    <label class="form-label required">Curso</label>
+                    <div>
+                        <input type="text" class="form-control" name="curso" id="curso"
+                            placeholder="Introduce el curso..." value="{{ old('curso', $grupo->curso) }}" minlength="1">
+                    </div>
+                    @error('curso_escolar') 
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p> 
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label class="form-label required">Turno</label>
+                    <select name="turno" id="turno" class="form-select">
+                            @foreach($turnos as $turno)
+                                <option value="{{$turno}}">{{$turno}}</option>
+                            @endforeach
+                    </select>
+                    @error('turno') 
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p> 
+                    @enderror
+                </div>
+                <div class="card-footer text-end">
+                    <button type="submit" class="btn btn-primary">Editar grupo</button>
+                </div>
+        </form>
+        <div class="row g-2">
+            <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                <a href="{{ url()->previous() }}" class="btn btn-info w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M9 14l-4 -4l4 -4" />
+                        <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
+                    </svg>
+                    Volver
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                <a href="{{ url('grupo/' . $grupo->id ) }}" class="btn btn-warning w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                    </svg>
+                    Mostrar
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                <button type="button" form="deleteGrupoForm" class="btn btn-danger w-100"
+                    data-url="{{ url('grupo/' . $grupo->id) }}" data-denominacion="{{ $grupo->denominacion }}"
+                    data-bs-toggle="modal" data-bs-target="#deleteGrupoModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 7l16 0" />
+                        <path d="M10 11l0 6" />
+                        <path d="M14 11l0 6" />
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                    </svg>
+                    Eliminar
+                </button>
             </div>
         </div>
     </div>
+</div>
 @endsection
