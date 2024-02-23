@@ -238,7 +238,7 @@
                         LessonManagement
                     </div>
                     <h2 class="page-title">
-                        Resume
+                        Resumen
                     </h2>
                 </div>
             </div>
