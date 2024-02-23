@@ -36,3 +36,16 @@
     background-image: url(../static/add_ico.svg);
     transition: all .3s ease-in-out;
 }
+
+/* QUICK ACTIONS CARDS */
+.quick-actions {
+    text-decoration: none;
+}
+
+.quick-actions:hover {
+    text-decoration: none;
+}
+
+.quick-actions h3 {
+    text-decoration: none;
+}
