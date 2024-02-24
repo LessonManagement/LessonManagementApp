@@ -157,7 +157,6 @@ class ModuloController extends Controller
         } catch (\Exception $e) {
             return back()->withInput()->withErrors(['message' => 'El módulo no ha sido creado correctamente.']);
         }
-
     }
 
     /**
