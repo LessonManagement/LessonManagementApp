@@ -437,11 +437,11 @@
                     <div class="row row-cards">
                         <div class="col-sm-6 col-lg-3">
                             <a class="quick-actions link" href="{{ url('modulo/create') }}">
-                                <div class="card card-sm card-link card-link-rotate">
+                                <div class="card card-sm card-link card-link-rotate bg-primary">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span class="bg-primary text-white avatar">
+                                                <span class="avatar">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         class="icon icon-tabler icon-tabler-plus" width="24"
                                                         height="24" viewBox="0 0 24 24" stroke-width="1.5"
@@ -455,7 +455,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="title">
-                                                    <h3 style="margin: 0; color: #172433">REGISTRAR MÓDULO</h3>
+                                                    <h3 class="text-white" style="margin: 0; color: #172433">REGISTRAR MÓDULO</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -465,11 +465,11 @@
                         </div>
                         <div class="col-sm-6 col-lg-3">
                             <a class="quick-actions link" href="{{ url('formacion/create') }}">
-                                <div class="card card-sm card-link card-link-rotate">
+                                <div class="card card-sm card-link card-link-rotate bg-green">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span class="bg-green text-white avatar">
+                                                <span class="avatar">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         class="icon icon-tabler icon-tabler-plus" width="24"
                                                         height="24" viewBox="0 0 24 24" stroke-width="1.5"
@@ -483,7 +483,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="title">
-                                                    <h3 style="margin: 0; color: #172433">REGISTRAR FORMACIÓN</h3>
+                                                    <h3 class="text-white" style="margin: 0; color: #172433">REGISTRAR FORMACIÓN</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -493,11 +493,11 @@
                         </div>
                         <div class="col-sm-6 col-lg-3">
                             <a class="quick-actions link" href="{{ url('grupo/create') }}">
-                                <div class="card card-sm card-link card-link-rotate">
+                                <div class="card card-sm card-link card-link-rotate bg-twitter">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span class="bg-twitter text-white avatar">
+                                                <span class="avatar">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         class="icon icon-tabler icon-tabler-plus" width="24"
                                                         height="24" viewBox="0 0 24 24" stroke-width="1.5"
@@ -511,7 +511,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="title">
-                                                    <h3 style="margin: 0; color: #172433">REGISTRAR GRUPO</h3>
+                                                    <h3 class="text-white" style="margin: 0; color: #172433">REGISTRAR GRUPO</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -521,11 +521,11 @@
                         </div>
                         <div class="col-sm-6 col-lg-3">
                             <a class="quick-actions link" href="{{ url('profesor/create') }}">
-                                <div class="card card-sm card-link card-link-rotate">
+                                <div class="card card-sm card-link card-link-rotate bg-facebook">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span class="bg-facebook text-white avatar">
+                                                <span class="avatar">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         class="icon icon-tabler icon-tabler-plus" width="24"
                                                         height="24" viewBox="0 0 24 24" stroke-width="1.5"
@@ -539,7 +539,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="title">
-                                                    <h3 style="margin: 0; color: #172433">REGISTRAR PROFESOR</h3>
+                                                    <h3 class="text-white" style="margin: 0; color: #172433">REGISTRAR PROFESOR</h3>
                                                 </div>
                                             </div>
                                         </div>
