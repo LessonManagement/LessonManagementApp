@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -48,7 +49,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        $types = ['user' => 'Usuario', 'root' => 'Super Administrador', 'admin' => 'Administrador'];
+        return view('admin.create', ['types' => $types]);
     }
 
     /**
@@ -56,7 +58,16 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        $object = new User($request->all());
 
+        try {
+            $result = $object->save();
+            // Donde redirigirá después de crear
+            $target = 'admin';
+            return redirect($target)->with(['message' => 'Usuario creado correctamente.']);
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors(['message' => 'El usuario no ha sido creado correctamente.']);
+        }
     }
 
     /**
@@ -64,7 +75,8 @@ class AdminController extends Controller
      */
     public function show(string $id)
     {
-        return view('admin.show');
+        $user = User::find($id);
+        return view('admin.show', ['user' => $user]);
     }
 
     /**
@@ -72,7 +84,12 @@ class AdminController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.edit');
+        $user = User::find($id);
+        $types = ['user' => 'Usuario', 'root' => 'Super Administrador', 'admin' => 'Administrador'];
+        return view('admin.edit', [
+            'user' => $user,
+            'types' => $types,
+        ]);
     }
 
     /**
@@ -80,7 +97,22 @@ class AdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $user = User::find($id);
 
+        if($request->password != '') {
+            $user->password = Hash::make($request->password);
+        }
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->type = $request->type;
+        try {
+            // Actualizamos el módulo
+            $result = $user->save();
+        
+            return redirect('admin')->with(['message' => 'El usuario se ha actualizado correctamente']);
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors(['message' => $e]);
+        }
     }
 
     /**

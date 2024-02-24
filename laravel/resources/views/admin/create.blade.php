@@ -230,13 +230,75 @@
 @section('main-content')
     <div class="page-header d-print-none">
         <div class="container-xl">
-            <div class="bread-crumbs">
+            <div class="bread-crumbs mb-5">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ urL('formacion') }}">Formación</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ url('formacion/create') }}">Añadir formación</a></li>
+                    <li class="breadcrumb-item"><a href="{{ urL('admin') }}">Admin</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ url('admin/create') }}">Añadir usuario</a></li>
                 </ol>
             </div>
+            <div class="row g-2">
+                <h2 class="page-title">
+                    Crear usuario
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <form class="card" action="{{ url('admin') }}" method="post">
+                @csrf
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label required">Nombre</label>
+                        <div>
+                            <input type="text" class="form-control" name="name" id="name"
+                                placeholder="Introduce el nombre de usuario..." maxlength="100" minlength="1" required
+                                value="{{ old('name') }}">
+                        </div>
+                        @error('name')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Email</label>
+                        <div>
+                            <input type="email" class="form-control" name="email" id="email"
+                                placeholder="Introduce el email..." required
+                                value="{{ old('email') }}">
+                        </div>
+                        @error('email')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Contraseña</label>
+                        <div>
+                            <input type="text" class="form-control" name="password" id="password"
+                                placeholder="Introduce la contraseña..." required value="{{ old('password') }}">
+                        </div>
+                        @error('password')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Tipo de usuario</label>
+                        <div>
+                            <select class="form-select" name="type" id="type" required>
+                                <option value="no_type" disabled>--- Selecciona el tipo de usuario ----</option>
+                                @foreach ($types as $value => $type)
+                                    <option value="{{ $value }}">{{ $type }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('type')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-primary">Crear usuario</button>
+                    </div>
+            </form>
         </div>
     </div>
 @endsection
