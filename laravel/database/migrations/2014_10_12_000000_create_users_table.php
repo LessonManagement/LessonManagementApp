@@ -20,8 +20,15 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->enum('type', ['root', 'admin', 'user'])->default('user');
+            $table->string('bio', 1000)->nullable();
+            $table->binary('user_pic')->nullable();
             $table->timestamps();
         });
+
+        // Cambiamos el tipo de dato de la foto a LONGBLOB
+        $sql = 'alter table users change user_pic user_pic longblob';
+        //las migraciones de Laravel no ofrecen el tipo longblob
+        DB::statement($sql);
 
         // Creamos usuario root por defecto al aplicar las migraciones
         $pass = Hash::make('lm2024');
