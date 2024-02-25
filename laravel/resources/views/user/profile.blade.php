@@ -228,5 +228,80 @@
 @endsection
 
 @section('main-content')
-    
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="bread-crumbs mb-5">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ url('profile') }}">Perfil</a></li>
+                </ol>
+            </div>
+            <div class="row g-2 d-flex flex-row justify-content-between">
+                <div class="col">
+                    <h2 class="page-title col-xl-3">
+                        Mi perfil
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <form class="card" action="{{ url('profile/' . $user->id) }}" method="post"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-auto">
+                                <img class="avatar avatar-lg" width="100%" style="aspect-ratio: 1/1"
+                                    src="{{ $user->user_pic == null ? url('assets/static/default_avatar.svg') : 'data:image/jpeg;base64,'.$user->user_pic }}"
+                                    alt="">
+                            </div>
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Imagen</label>
+                                    <input class="form-control" type="file" name="user_pic" id="user_pic">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre</label>
+                                    <input class="form-control" name="name" id="name"
+                                        value="{{ old('name', $user->name) }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Biografía</label>
+                        <textarea class="form-control" name="bio" id="bio" rows="5">{{ old('bio', $user->bio) }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dirección de email</label>
+                        <input class="form-control" type="email" name="email" id="email"
+                            value="{{ old('email', $user->email) }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" name="old_password" id="old_password" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nueva contraseña</label>
+                        <input type="password" name="password" id="password_confirmation" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Confirmar contraseña</label>
+                        <input type="password" name="password_confirmation" id="password_confirmation"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    <button type="submit" class="btn btn-primary">
+                        Actualizar perfil
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
