@@ -75,8 +75,9 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                                 aria-label="Open user menu">
-                                <span class="avatar avatar-sm"
-                                    style="background-image: url({{ url('assets/static/default_avatar.svg') }})"></span>
+                                <img class="avatar avatar-sm"
+                                    src="{{ Auth::user()->user_pic == null ? url('assets/static/default_avatar.svg') : 'data:image/jpeg;base64,' . Auth::user()->user_pic }}"
+                                    alt="Foto de perfil">
                                 <div class="d-none d-xl-block ps-2">
                                     <div>{{ Auth::user()->name }}</div>
                                     <div class="mt-1 small text-muted text-uppercase">{{ Auth::user()->type }}</div>
@@ -89,8 +90,7 @@
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    class="d-none">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
                             </div>
