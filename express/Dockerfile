@@ -24,4 +24,4 @@ COPY --chown=node:node . .
 EXPOSE 443
 
 # Llamamos al programa principal
-CMD [ "node", "server.js" ]
+CMD [ "node", "app.js" ]

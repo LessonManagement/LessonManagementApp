@@ -4,8 +4,10 @@ const passport = require('passport');
 const bodyparser = require('body-parser');
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
 // Google
 require('./auth.js');
+const data = require('./data.json');
 
 const app = express();
 const PUERTO = 443;
@@ -21,10 +23,27 @@ function isLoggedIn(req, res, next) {
     req.user ? next() : res.sendStatus(401);
 }
 
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['email', 'profile'] }
+    ));
+
 // Ruta home-main
+
+
+// app.get('/home', isLoggedIn, (req, res) => {
+//     res.sendFile(path.resolve('views/home.html'));
+// });
+
 app.get('/home', isLoggedIn, (req, res) => {
-    res.sendFile(path.resolve('views/home.html'))
+    let rest = false;
+    data.user.emails.forEach((email) => {
+        if (req.user.email == email) {
+            rest = true;
+        }
+    });
+    resultado = rest == true ? res.sendFile(path.resolve('views/home.html')) : res.sendFile(path.resolve('views/login.html'))
 })
+
 
 app.get('/google/callback',
     passport.authenticate('google', {
@@ -33,11 +52,6 @@ app.get('/google/callback',
     })
 );
 
-app.get('/logout', (req, res) => {
-    req.logout();
-    req.session.destroy();
-    res.send('Goodbye!');
-});
 
 app.get('/google/failure', (req, res) => {
     res.send('Fallo en la autentificacion..');
