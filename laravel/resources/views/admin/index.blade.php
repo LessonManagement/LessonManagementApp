@@ -277,8 +277,9 @@
                     <div class="col-md-6 col-lg-3">
                         <div class="card">
                             <div class="card-body p-4 text-center">
-                                <span class="avatar avatar-xl mb-3 rounded"
-                                    style="background-image: url({{ url('assets/static/default_avatar.svg') }})"></span>
+                                <img class="avatar avatar-xl mb-3 rounded" style="object-fit: cover"
+                                    src="{{ $admin->user_pic == null ? url('assets/static/default_avatar.svg') : 'data:image/jpeg;base64,' . $admin->user_pic }}"
+                                    alt="">
                                 <h3 class="m-0 mb-1"><a href="{{ url('admin/' . $admin->id) }}">{{ $admin->name }}</a>
                                 </h3>
                                 <div class="text-muted" style="font-size: .7rem">{{ $admin->email }}</div>
@@ -334,8 +335,9 @@
                     <div class="col-md-6 col-lg-3">
                         <div class="card">
                             <div class="card-body p-4 text-center">
-                                <span class="avatar avatar-xl mb-3 rounded"
-                                    style="background-image: url({{ url('assets/static/default_avatar.svg') }})"></span>
+                                <img class="avatar avatar-xl mb-3 rounded" style="object-fit: cover"
+                                    src="{{ $user->user_pic == null ? url('assets/static/default_avatar.svg') : 'data:image/jpeg;base64,' . $user->user_pic }}"
+                                    alt="">
                                 <h3 class="m-0 mb-1"><a href="#">{{ $user->name }}</a></h3>
                                 <div class="text-muted" style="font-size: .7rem">{{ $user->email }}</div>
                                 <div class="mt-3">
