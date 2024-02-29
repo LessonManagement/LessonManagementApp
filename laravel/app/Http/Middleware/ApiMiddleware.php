@@ -8,13 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiMiddleware
 {
-    const USER = 'lessonmanagement_2024';
-    const PASSWORD = 'lessonManagementPass_2024';
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
         $user = $request->user;
@@ -28,9 +21,8 @@ class ApiMiddleware
 
     private function credentialsAreValid($user, $pass)
     {
-        // Comprobamos si las credenciales son válidas
         $result = false;
-        if ($user == self::USER && $pass = self::PASSWORD)
+        if ($user == config('credentials.api_username') && $pass == config('credentials.api_password'))
             $result = true;
         return $result;
     }
