@@ -228,14 +228,280 @@
 @endsection
 
 @section('main-content')
+    @include('leccion.modals.deleteLeccion')
+    @include('leccion.modals.generateLecciones')
+    @include('leccion.modals.regenerateLecciones')
     <div class="page-header d-print-none">
         <div class="container-xl">
-            <div class="bread-crumbs">
+            <div class="bread-crumbs mb-5">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ urL('leccion') }}">Lección</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ url('leccion') }}">Lección</a></li>
                 </ol>
             </div>
+            <div class="row g-2 d-flex flex-row justify-content-between">
+                <div class="col">
+                    <h2 class="page-title col-xl-3">
+                        Lista de lecciones
+                    </h2>
+                </div>
+                @if (sizeof($lecciones) > 0)
+                    <div class="col-auto ms-auto d-print-none">
+                        <a href="" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#regenerateLeccionesModal">
+                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M12 5l0 14" />
+                                <path d="M5 12l14 0" />
+                            </svg>
+                            Regenerar lecciones
+                        </a>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            @if (!sizeof($lecciones))
+                <button type="button" id="noLecciones" form="generateLeccionesForm" data-bs-toggle="modal"
+                    data-bs-target="#generateLeccionesModal" hidden>
+                </button>
+                <script>
+                    (() => {
+                        'use strict'
+                        window.onload = () => {
+                            document.getElementById('noLecciones').click();
+                        }
+                    })()
+                </script>
+            @endif
+            {{-- TABLA PARA MOSTRAR LECCIONES --}}
+            <div class="row row-cards">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body border-bottom py-3">
+                            <div class="d-flex">
+                                <div class="text-muted">
+                                    Show
+                                    <div class="mx-2 d-inline-block">
+                                        <select class="form-select form-select-sm" name="rpp" id="rpp"
+                                            aria-label="Rows per page" form="rowPerPage">
+                                            @foreach ($rpps as $index => $value)
+                                                <option value="{{ $index }}"
+                                                    {{ $rpp == $index ? 'selected' : '' }}>{{ $value }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <form id="rowPerPage" action="">
+                                            <input type="hidden" name="orderBy" value="{{ $orderBy }}" />
+                                            <input type="hidden" name="orderType" value="{{ $orderType }}" />
+                                            <input type="hidden" name="q" value="{{ $q }}" />
+                                        </form>
+                                    </div>
+                                    entries
+                                </div>
+                                <div class="ms-auto text-muted">
+                                    Search:
+                                    <div class="ms-2 d-inline-block">
+                                        <input type="text" class="form-control form-control-sm"
+                                            aria-label="Search lección" id="q" name="q" form="search">
+                                        <form action="" id="search">
+                                            <input type="hidden" name="orderBy" value="{{ $orderBy }}" />
+                                            <input type="hidden" name="orderType" value="{{ $orderType }}" />
+                                            <input type="hidden" name="rpp" value="{{ $rpp }}" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive" style="min-height: 250px">
+                            <table class="table card-table table-vcenter text-nowrap datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1">
+                                            ID
+                                            <a href="?rpp={{ $rpp }}&orderBy=leccion.id&orderType=asc&q={{ $q }}"
+                                                style="text-decoration: none">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-arrow-up" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round" style="--tblr-icon-size: .9rem">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 5l0 14" />
+                                                    <path d="M18 11l-6 -6" />
+                                                    <path d="M6 11l6 -6" />
+                                                </svg>
+                                            </a>
+                                            <a
+                                                href="?rpp={{ $rpp }}&orderBy=leccion.id&orderType=desc&q={{ $q }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-arrow-down" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round" style="--tblr-icon-size: .9rem">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 5l0 14" />
+                                                    <path d="M18 13l-6 6" />
+                                                    <path d="M6 13l6 6" />
+                                                </svg>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            Grupo
+                                            <a href="?rpp={{ $rpp }}&orderBy=grupo.denominacion&orderType=asc&q={{ $q }}"
+                                                style="text-decoration: none">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-arrow-up" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round" style="--tblr-icon-size: .9rem">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 5l0 14" />
+                                                    <path d="M18 11l-6 -6" />
+                                                    <path d="M6 11l6 -6" />
+                                                </svg>
+                                            </a>
+                                            <a
+                                                href="?rpp={{ $rpp }}&orderBy=grupo.denominacion&orderType=desc&q={{ $q }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-arrow-down" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round" style="--tblr-icon-size: .9rem">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 5l0 14" />
+                                                    <path d="M18 13l-6 6" />
+                                                    <path d="M6 13l6 6" />
+                                                </svg>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            Módulo
+                                            <a href="?rpp={{ $rpp }}&orderBy=modulo.denominacion&orderType=asc&q={{ $q }}"
+                                                style="text-decoration: none">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-arrow-up" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round" style="--tblr-icon-size: .9rem">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 5l0 14" />
+                                                    <path d="M18 11l-6 -6" />
+                                                    <path d="M6 11l6 -6" />
+                                                </svg>
+                                            </a>
+                                            <a
+                                                href="?rpp={{ $rpp }}&orderBy=modulo.denominacion&orderType=desc&q={{ $q }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-arrow-down" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round" style="--tblr-icon-size: .9rem">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 5l0 14" />
+                                                    <path d="M18 13l-6 6" />
+                                                    <path d="M6 13l6 6" />
+                                                </svg>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            Nº horas
+                                            <a href="?rpp={{ $rpp }}&orderBy=leccion.horas&orderType=asc&q={{ $q }}"
+                                                style="text-decoration: none">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-arrow-up" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round" style="--tblr-icon-size: .9rem">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 5l0 14" />
+                                                    <path d="M18 11l-6 -6" />
+                                                    <path d="M6 11l6 -6" />
+                                                </svg>
+                                            </a>
+                                            <a
+                                                href="?rpp={{ $rpp }}&orderBy=leccion.horas&orderType=desc&q={{ $q }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-arrow-down" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round" style="--tblr-icon-size: .9rem">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 5l0 14" />
+                                                    <path d="M18 13l-6 6" />
+                                                    <path d="M6 13l6 6" />
+                                                </svg>
+                                            </a>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($lecciones as $leccion)
+                                        <tr>
+                                            <td>
+                                                {{ $leccion->id }}
+                                            </td>
+                                            <td>
+                                                {{ $leccion->grupo_denom }}
+                                            </td>
+                                            <td>
+                                                {{ $leccion->modulo_denom }}
+                                            </td>
+                                            <td>
+                                                {{ $leccion->horas }}
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="dropdown">
+                                                    <button class="btn dropdown-toggle align-text-top"
+                                                        data-bs-boundary="viewport"
+                                                        data-bs-toggle="dropdown">Acciones</button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item"
+                                                            href="{{ url('leccion/' . $leccion->id) }}"
+                                                            style="transform: translate3d(0px, auto, 0px)">
+                                                            Mostrar
+                                                        </a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ url('leccion/' . $leccion->id . '/edit') }}">
+                                                            Editar
+                                                        </a>
+                                                        <button type="button" form="deleteLeccionForm"
+                                                            class="dropdown-item"
+                                                            data-url="{{ url('leccion/' . $leccion->id) }}"
+                                                            data-id="{{ $leccion->id }}" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteLeccionModal">
+                                                            Eliminar
+                                                        </button>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">Showing <span>{{ $init_lecc }}</span> to
+                                <span>{{ $last_lecc_page }}</span> of
+                                <span>{{ $leccion_count }}</span> entries
+                            </p>
+                            {{ $lecciones->appends(['rpp' => $rpp, 'orderBy' => $orderBy, 'orderType' => $orderType, 'q' => $q])->onEachSide(2)->links() }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                document.getElementById('rpp').addEventListener('change', () => {
+                    // Envio del formulario
+                    document.getElementById('rowPerPage').submit();
+                })
+            </script>
         </div>
     </div>
 @endsection
