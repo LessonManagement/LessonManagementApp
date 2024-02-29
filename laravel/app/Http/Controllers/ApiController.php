@@ -17,7 +17,7 @@ class ApiController extends Controller
      * Devuelve los emails de los profesores dados de alta en la base de datos
      * en formato JSON desde ruta API
      * 
-     * @return json $emails
+     * @return $emails
      */
     function get_emails(Request $request)
     {
