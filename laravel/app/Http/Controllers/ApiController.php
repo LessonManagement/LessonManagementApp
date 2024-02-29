@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Leccion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -9,7 +10,7 @@ class ApiController extends Controller
 {
     function __construct()
     {
-        $this->middleware('auth:api')->except(['get_emails']);
+        $this->middleware('lmapi')->except(['get_emails']);
     }
 
     /**
@@ -26,5 +27,10 @@ class ApiController extends Controller
             array_push($emails, $entry->email);
         }
         return response()->json($emails);
+    }
+
+    function data_structure(Request $request) {
+        $lecciones = Leccion::all();
+        dd($lecciones);
     }
 }
