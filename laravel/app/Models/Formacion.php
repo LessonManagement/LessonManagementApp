@@ -20,7 +20,7 @@ class Formacion extends Model
 
     // Relación belongstomany tabla pivot modelo_formacion
     function modulos() {
-        return $this->belongsToMany('App\Models\Modulo', 'grupo_formacion', 'idformacion', 'idmodulo')
+        return $this->belongsToMany('App\Models\Modulo', 'modulo_formacion', 'idformacion', 'idmodulo')
             ->withTimestamps();
     }
 }
