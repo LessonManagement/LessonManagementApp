@@ -266,7 +266,7 @@
     </div>
     <div class="page-body">
         <div class="container-xl">
-            @if (!sizeof($lecciones))
+            @if (!sizeof($lecciones) && (Auth::user()->type == 'root' || Auth::user()->type == 'admin'))
                 <button type="button" id="noLecciones" form="generateLeccionesForm" data-bs-toggle="modal"
                     data-bs-target="#generateLeccionesModal" hidden>
                 </button>
