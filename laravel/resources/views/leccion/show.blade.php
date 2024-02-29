@@ -228,15 +228,94 @@
 @endsection
 
 @section('main-content')
+    @include('leccion.modals.deleteLeccion')
     <div class="page-header d-print-none">
         <div class="container-xl">
-            <div class="bread-crumbs">
+            <div class="bread-crumbs mb-5">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ urL('leccion') }}">Lección</a></li>
                     <li class="breadcrumb-item active"><a href="{{ url('leccion/{leccion}') }}">Visualizar lección</a>
                     </li>
                 </ol>
+            </div>
+            <div class="row g-2">
+                <h2 class="page-title">
+                    Vista en detalle lección '{{ $leccion->id }}''
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row d-flex justify-content-evenly ">
+                <div class="card mb-5 col-sm-6 col-lg-3">
+                    <div class="card-header card-header-black">
+                        <h3 class="card-title">Grupo</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ $leccion->grupo->denominacion }}
+                    </div>
+                </div>
+                <div class="card mb-5 col-sm-6 col-lg-3">
+                    <div class="card-header card-header-black">
+                        <h3 class="card-title">Módulo</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ $leccion->modulo->denominacion }}
+                    </div>
+                </div>
+                <div class="card mb-5 col-sm-6 col-lg-3">
+                    <div class="card-header card-header-black">
+                        <h3 class="card-title">Nº Horas</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ $leccion->horas }}
+                    </div>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="{{ url()->previous() }}" class="btn btn-info w-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 14l-4 -4l4 -4" />
+                            <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
+                        </svg>
+                        Volver
+                    </a>
+                </div>
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="{{ url('leccion/' . $leccion->id . '/edit') }}" class="btn btn-warning w-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                            <path d="M13.5 6.5l4 4" />
+                        </svg>
+                        Editar
+                    </a>
+                </div>
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <button type="button" form="deleteLeccionForm" class="btn btn-danger w-100"
+                        data-url="{{ url('leccion/' . $leccion->id) }}" data-id="{{ $leccion->id }}"
+                        data-bs-toggle="modal" data-bs-target="#deleteLeccionModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 7l16 0" />
+                            <path d="M10 11l0 6" />
+                            <path d="M14 11l0 6" />
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                        </svg>
+                        Eliminar
+                    </button>
+                </div>
             </div>
         </div>
     </div>
