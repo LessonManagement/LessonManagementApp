@@ -245,7 +245,7 @@
                         Lista de lecciones
                     </h2>
                 </div>
-                @if (sizeof($lecciones) > 0)
+                @if (sizeof($lecciones) > 0 && (Auth::user()->type == 'root' || Auth::user()->type == 'admin'))
                     <div class="col-auto ms-auto d-print-none">
                         <a href="" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#regenerateLeccionesModal">
