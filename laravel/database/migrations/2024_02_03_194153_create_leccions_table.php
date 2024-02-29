@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('idgrupo')->references('id')->on('grupo')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('idmodulo');
             $table->foreign('idmodulo')->references('id')->on('modulo')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('idprofesor');
+            $table->foreignId('idprofesor')->nullable();
             $table->foreign('idprofesor')->references('id')->on('profesor')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('horas')->unsigned();
             $table->timestamps();
