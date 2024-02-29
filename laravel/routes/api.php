@@ -22,3 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Ruta para devolver los emails de los profesores
 Route::get('emails', [ApiController::class, 'get_emails'])->name('emails');
+
+// Ruta para devolver la estructura de datos necesarios para el frontend
+Route::get('lmdata', [ApiController::class, 'data_structure'])->name('lmdata');
