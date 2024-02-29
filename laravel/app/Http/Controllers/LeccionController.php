@@ -26,6 +26,7 @@ class LeccionController extends Controller
             'leccion.horas' => 0,
             'modulo.denominacion' => 0,
             'grupo.denominacion' => 0,
+            'profesor.nombre'
         ],
         'orderType' => [
             self::ORDERTYPE => self::ORDERTYPE,
@@ -50,18 +51,21 @@ class LeccionController extends Controller
         $leccionQ = DB::table('leccion')
             ->join('modulo', 'leccion.idmodulo', '=', 'modulo.id')
             ->join('grupo', 'leccion.idgrupo', '=', 'grupo.id')
+            ->join('profesor', 'leccion.idprofesor', '=', 'profesor.id')
             ->select(
                 'leccion.id AS id',
                 'modulo.denominacion AS modulo_denom',
                 'grupo.denominacion AS grupo_denom',
                 'leccion.horas AS horas',
+                'profesor.nombre AS prof_nombre',
             );
 
         if ($q != null) {
             $leccionQ = $leccionQ->where('leccion.id', 'like', '%' . $q . '%')
                 ->orWhere('grupo.denominacion', 'like', '%' . $q . '%')
                 ->orWhere('modulo.denominacion', 'like', '%' . $q . '%')
-                ->orWhere('leccion.horas', 'like', '%' . $q . '%');
+                ->orWhere('leccion.horas', 'like', '%' . $q . '%')
+                ->orWhere('profesor.nombre', 'like', '%' . $q . '%');
         }
 
         $lecciones = $leccionQ->orderBy($orderBy, $orderType)
@@ -114,11 +118,30 @@ class LeccionController extends Controller
         return $value;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Operaciones permitidas para generar lecciones
+    const OP = [
+        'REGEN' => 'regen',
+        'GEN' => 'generate',
+        'RECARGA' => 'recarga'
+    ];
+
+    public function create(Request $request)
     {
+        switch ($request->op) {
+            case self::OP['GEN']:
+                return $this->generarLecciones();
+            case self::OP['REGEN']:
+                return $this->regenerarLecciones();
+            case self::OP['RECARGA']:
+                return $this->recargarLecciones();
+            default:
+                return back();
+        }
+    }
+
+    private function generarLecciones()
+    {
+        // Función para generar lecciones
         try {
             // Recogemos todos los grupos
             $grupos = Grupo::all();
@@ -134,19 +157,55 @@ class LeccionController extends Controller
         }
     }
 
+    private function regenerarLecciones()
+    {
+        // Regenerar lecciones
+        // Borramos base de datos de lecciones y creamos las nuevas
+        try {
+            // Borro la tabla de lecciones
+            DB::table('leccion')->truncate();
+            // Recogemos todos los grupos
+            $grupos = Grupo::all();
+            // Recorremos la lista de grupos
+            foreach ($grupos as $grupo) {
+                foreach ($grupo->formacion->modulos as $mod) {
+                    $this->newLeccion($grupo, $mod);
+                }
+            }
+            return redirect('leccion')->with(['message' => 'Lecciones regeneradas exitosamente.']);
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors(['message' => 'No se han podido regenerar las lecciones']);
+        }
+    }
+
+    private function recargarLecciones()
+    {
+        // Recargar lecciones
+        // Comprobar las lecciones y si existen no hacer, si no existen se crean
+        try {
+            // Recogemos todos los grupos
+            $grupos = Grupo::all();
+            // Recorremos la lista de grupos
+            foreach ($grupos as $grupo) {
+                foreach ($grupo->formacion->modulos as $mod) {
+                    // Comprobamos si existe
+                    $lec = Leccion::where('idgrupo', $grupo->id)->where('idmodulo', $mod->id)->where('horas', $mod->horas)->get();
+                    if (sizeof($lec) < 1) {
+                        $this->newLeccion($grupo, $mod);
+                    }
+                }
+            }
+            return redirect('leccion')->with(['message' => 'Lecciones recargadas exitosamente.']);
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors(['message' => 'No se han podido recargar las lecciones']);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // Recogemos todos los grupos
-        $grupos = Grupo::all();
-        // Recorremos la lista de grupos
-        $formaciones = [];
-        foreach ($grupos as $grupo) {
-            array_push($formaciones, $grupo->formacion);
-        }
-        dd($formaciones);
     }
 
     private function newLeccion($grp, $mod)
@@ -154,7 +213,7 @@ class LeccionController extends Controller
         $lecc = new Leccion();
         $lecc->idgrupo = $grp->id;
         $lecc->idmodulo = $mod->id;
-        $lecc->idprofesor = null;
+        $lecc->idprofesor = 1;
         $lecc->horas = $mod->horas;
         $lecc->save();
     }
