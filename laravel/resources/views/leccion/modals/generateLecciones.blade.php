@@ -16,6 +16,7 @@
                 <div class="text-muted">Las lecciones aún no han sido generadas. ¿Te gustaría generarlas ahora?</div>
             </div>
             <form id="generateForm" action="{{ url('leccion/create') }}" method="get">
+                <input type="hidden" name="op" value="generate">
             </form>
             <div class="modal-footer">
                 <div class="w-100">
