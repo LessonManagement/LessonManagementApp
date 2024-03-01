@@ -15,6 +15,9 @@
     <link href="{{ url('assets/css/tabler-vendors.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ url('assets/css/demo.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ url('assets/css/styles.css') }}" rel="stylesheet" />
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="url-base" content="{{ url('') }}">
     <style>
         @import url('https://rsms.me/inter/inter.css');
 

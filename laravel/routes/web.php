@@ -25,3 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name(
 // Ruta para el perfil del usuario
 Route::get('profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 Route::post('profile/{user}', [App\Http\Controllers\UserController::class, 'updateProfile'])->name('profile.update');
+
+// Rutas para llamadas ajax
+
+Route::get('index', [App\Http\Controllers\FormacionController::class, 'indexAjax'])->name('formacion.indexAjax');

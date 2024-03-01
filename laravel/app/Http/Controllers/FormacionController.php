@@ -11,8 +11,17 @@ class FormacionController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {  
         return view('formacion.index');
+    }
+    
+    /**
+     * Metodo para llamada ajax de la tabla formacion
+     */
+    public function indexAjax()
+    {  
+        $formaciones = Formacion::all();
+        return response()->json(['formaciones' => $formaciones]);
     }
 
     /**
