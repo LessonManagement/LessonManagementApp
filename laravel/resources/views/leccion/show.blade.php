@@ -251,12 +251,34 @@
             <div class="row d-flex justify-content-evenly ">
                 <div class="card mb-5 col-sm-6 col-lg-3">
                     <div class="card-header card-header-black">
+                        <h3 class="card-title">ID</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ $leccion->id }}
+                    </div>
+                </div>
+                <div class="card mb-5 col-sm-6 col-lg-3">
+                    <div class="card-header card-header-black">
                         <h3 class="card-title">Grupo</h3>
                     </div>
                     <div class="card-body">
                         {{ $leccion->grupo->denominacion }}
                     </div>
                 </div>
+                <div class="card mb-5 col-sm-6 col-lg-3">
+                    <div class="card-header card-header-black">
+                        <h3 class="card-title">Profesor</h3>
+                    </div>
+                    <div class="card-body">
+                        @if ($leccion->profesor->id == 1 || $leccion->profesor->nombre == 'LessonManagement')
+                            No asignado
+                        @else
+                            {{ $leccion->profesor->nombre }}
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-evenly ">
                 <div class="card mb-5 col-sm-6 col-lg-3">
                     <div class="card-header card-header-black">
                         <h3 class="card-title">Módulo</h3>
