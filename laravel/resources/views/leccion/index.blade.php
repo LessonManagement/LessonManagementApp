@@ -325,7 +325,8 @@
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm"
-                                            aria-label="Search lección" id="q" name="q" form="search" placeholder="Buscar...">
+                                            aria-label="Search lección" id="q" name="q" form="search"
+                                            placeholder="Buscar...">
                                         <form action="" id="search">
                                             <input type="hidden" name="orderBy" value="{{ $orderBy }}" />
                                             <input type="hidden" name="orderType" value="{{ $orderType }}" />
@@ -484,7 +485,9 @@
                                                 </svg>
                                             </a>
                                         </th>
-                                        <th></th>
+                                        @if (Auth::user()->type == 'admin' || Auth::user()->type == 'root')
+                                            <th></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -509,31 +512,33 @@
                                             <td>
                                                 {{ $leccion->horas }}
                                             </td>
-                                            <td class="text-end">
-                                                <span class="dropdown">
-                                                    <button class="btn dropdown-toggle align-text-top"
-                                                        data-bs-boundary="viewport"
-                                                        data-bs-toggle="dropdown">Acciones</button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item"
-                                                            href="{{ url('leccion/' . $leccion->id) }}"
-                                                            style="transform: translate3d(0px, auto, 0px)">
-                                                            Mostrar
-                                                        </a>
-                                                        <a class="dropdown-item"
-                                                            href="{{ url('leccion/' . $leccion->id . '/edit') }}">
-                                                            Editar
-                                                        </a>
-                                                        <button type="button" form="deleteLeccionForm"
-                                                            class="dropdown-item"
-                                                            data-url="{{ url('leccion/' . $leccion->id) }}"
-                                                            data-id="{{ $leccion->id }}" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteLeccionModal">
-                                                            Eliminar
-                                                        </button>
-                                                    </div>
-                                                </span>
-                                            </td>
+                                            @if (Auth::user()->type == 'admin' || Auth::user()->type == 'root')
+                                                <td class="text-end">
+                                                    <span class="dropdown">
+                                                        <button class="btn dropdown-toggle align-text-top"
+                                                            data-bs-boundary="viewport"
+                                                            data-bs-toggle="dropdown">Acciones</button>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item"
+                                                                href="{{ url('leccion/' . $leccion->id) }}"
+                                                                style="transform: translate3d(0px, auto, 0px)">
+                                                                Mostrar
+                                                            </a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ url('leccion/' . $leccion->id . '/edit') }}">
+                                                                Editar
+                                                            </a>
+                                                            <button type="button" form="deleteLeccionForm"
+                                                                class="dropdown-item"
+                                                                data-url="{{ url('leccion/' . $leccion->id) }}"
+                                                                data-id="{{ $leccion->id }}" data-bs-toggle="modal"
+                                                                data-bs-target="#deleteLeccionModal">
+                                                                Eliminar
+                                                            </button>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

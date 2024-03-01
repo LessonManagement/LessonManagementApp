@@ -291,7 +291,8 @@
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm"
-                                            aria-label="Search modulo" id="q" name="q" form="search" placeholder="Buscar...">
+                                            aria-label="Search modulo" id="q" name="q" form="search"
+                                            placeholder="Buscar...">
                                         <form action="" id="search">
                                             <input type="hidden" name="orderBy" value="{{ $orderBy }}" />
                                             <input type="hidden" name="orderType" value="{{ $orderType }}" />
@@ -508,7 +509,9 @@
                                                 </svg>
                                             </a>
                                         </th>
-                                        <th></th>
+                                        @if (Auth::user()->type == 'admin' || Auth::user()->type == 'root')
+                                            <th></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -535,31 +538,34 @@
                                             <td>
                                                 {{ $modulo->especialidad }}
                                             </td>
-                                            <td class="text-end">
-                                                <span class="dropdown">
-                                                    <button class="btn dropdown-toggle align-text-top"
-                                                        data-bs-boundary="viewport"
-                                                        data-bs-toggle="dropdown">Acciones</button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item"
-                                                            href="{{ url('modulo/' . $modulo->id) }}"
-                                                            style="transform: translate3d(0px, auto, 0px)">
-                                                            Mostrar
-                                                        </a>
-                                                        <a class="dropdown-item"
-                                                            href="{{ url('modulo/' . $modulo->id . '/edit') }}">
-                                                            Editar
-                                                        </a>
-                                                        <button type="button" form="deleteModuloForm"
-                                                            class="dropdown-item"
-                                                            data-url="{{ url('modulo/' . $modulo->id) }}"
-                                                            data-siglas="{{ $modulo->siglas }}" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteModuloModal">
-                                                            Eliminar
-                                                        </button>
-                                                    </div>
-                                                </span>
-                                            </td>
+                                            @if (Auth::user()->type == 'admin' || Auth::user()->type == 'root')
+                                                <td class="text-end">
+                                                    <span class="dropdown">
+                                                        <button class="btn dropdown-toggle align-text-top"
+                                                            data-bs-boundary="viewport"
+                                                            data-bs-toggle="dropdown">Acciones</button>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item"
+                                                                href="{{ url('modulo/' . $modulo->id) }}"
+                                                                style="transform: translate3d(0px, auto, 0px)">
+                                                                Mostrar
+                                                            </a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ url('modulo/' . $modulo->id . '/edit') }}">
+                                                                Editar
+                                                            </a>
+                                                            <button type="button" form="deleteModuloForm"
+                                                                class="dropdown-item"
+                                                                data-url="{{ url('modulo/' . $modulo->id) }}"
+                                                                data-siglas="{{ $modulo->siglas }}"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#deleteModuloModal">
+                                                                Eliminar
+                                                            </button>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
