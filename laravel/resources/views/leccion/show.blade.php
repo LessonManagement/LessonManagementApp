@@ -241,7 +241,7 @@
             </div>
             <div class="row g-2">
                 <h2 class="page-title">
-                    Vista en detalle lección '{{ $leccion->id }}''
+                    Vista en detalle lección
                 </h2>
             </div>
         </div>
