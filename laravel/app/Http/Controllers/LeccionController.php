@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Grupo;
 use App\Models\Leccion;
+use App\Models\Modulo;
+use App\Models\Profesor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -231,7 +233,15 @@ class LeccionController extends Controller
      */
     public function edit(Leccion $leccion)
     {
-        return view('leccion.edit', ['leccion' => $leccion]);
+        $grupos = Grupo::all();
+        $profesores = Profesor::where('id', '<>', 1)->get();
+        $modulos = Modulo::all();
+        return view('leccion.edit', [
+            'leccion' => $leccion,
+            'modulos' => $modulos,
+            'profesores' => $profesores,
+            'grupos' => $grupos
+        ]);
     }
 
     /**
