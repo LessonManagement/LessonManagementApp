@@ -270,7 +270,7 @@
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
                                 <div class="text-muted">
-                                    Show
+                                    Mostrar
                                     <div class="mx-2 d-inline-block">
                                         <select class="form-select form-select-sm" name="rpp" id="rpp"
                                             aria-label="Rows per page" form="rowPerPage">
@@ -285,13 +285,13 @@
                                             <input type="hidden" name="q" value="{{ $q }}" />
                                         </form>
                                     </div>
-                                    entries
+                                    entradas
                                 </div>
                                 <div class="ms-auto text-muted">
-                                    Search:
+                                    Buscar:
                                     <div class="ms-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm"
-                                            aria-label="Search modulo" id="q" name="q" form="search">
+                                            aria-label="Search modulo" id="q" name="q" form="search" placeholder="Buscar...">
                                         <form action="" id="search">
                                             <input type="hidden" name="orderBy" value="{{ $orderBy }}" />
                                             <input type="hidden" name="orderType" value="{{ $orderType }}" />
@@ -566,9 +566,9 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Showing <span>{{ $init_mod }}</span> to
-                                <span>{{ $last_mod_page }}</span> of
-                                <span>{{ $modulo_count }}</span> entries
+                            <p class="m-0 text-muted">Mostrando <span>{{ $init_mod }}</span> a
+                                <span>{{ $last_mod_page }}</span> de
+                                <span>{{ $modulo_count }}</span> entradas
                             </p>
                             {{ $modulos->appends(['rpp' => $rpp, 'orderBy' => $orderBy, 'orderType' => $orderType, 'q' => $q])->onEachSide(2)->links() }}
                         </div>
