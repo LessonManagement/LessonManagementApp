@@ -228,15 +228,139 @@
 @endsection
 
 @section('main-content')
+@include('leccion.modals.deleteLeccion')
     <div class="page-header d-print-none">
         <div class="container-xl">
-            <div class="bread-crumbs">
+            <div class="bread-crumbs mb-5">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ urL('leccion') }}">Lección</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ url('leccion/{leccion}/edit') }}">Editar lección</a>
-                    </li>
+                    <li class="breadcrumb-item"><a href="{{ url('leccion') }}">Lección</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ url('leccion/' . $leccion->id . '/edit') }}">Editar
+                            lección</a></li>
                 </ol>
+            </div>
+            <div class="row g-2">
+                <h2 class="page-title">
+                    Editar lección
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <form class="card" action="{{ url('leccion/' . $leccion->id) }}" method="post">
+                @csrf
+                @method('put')
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label required">Grupo</label>
+                        <div>
+                            <select name="idgrupo" id="idgrupo" class="form-select" required>
+                                @foreach ($grupos as $grupo)
+                                    <option value="{{ $grupo->id }}"
+                                        {{ old('idgrupo') === $grupo->id || $leccion->idgrupo === $grupo->id ? 'selected' : '' }}>
+                                        {{ $grupo->denominacion }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('idgrupo')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Profesor</label>
+                        <div>
+                            <select name="idprofesor" id="idprofesor" class="form-select" required>
+                                @foreach ($profesores as $profesor)
+                                    <option value="{{ $profesor->id }}"
+                                        {{ old('idprofesor') === $profesor->id || $leccion->idprofesor === $profesor->id ? 'selected' : '' }}>
+                                        {{ $profesor->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('idprofesor')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Modulo</label>
+                        <div>
+                            <select name="idmodulo" id="idmodulo" class="form-select" required>
+                                @foreach ($modulos as $modulo)
+                                    <option value="{{ $modulo->id }}" data-horas="{{ $modulo->horas }}"
+                                        {{ old('idmodulo') === $modulo->id || $leccion->idmodulo === $modulo->id ? 'selected' : '' }}>
+                                        {{ $modulo->denominacion }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('idformacion')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">Horas</label>
+                        <div>
+                            <input type="number" step="1" name="horas" id="horas" class="form-control"
+                                placeholder="Introduce el número de horas..." required min="1"
+                                value="{{ old('horas', $leccion->horas) }}" disabled>
+                        </div>
+                        @error('horas')
+                            <p class="ms-2 mt-1" style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-primary">Editar lección</button>
+                    </div>
+                    <script>
+                        document.getElementById('idmodulo').addEventListener('change', () => {
+                            let selectElement = document.getElementById('idmodulo');
+                            document.getElementById('horas').value = selectElement.options[selectElement.selectedIndex]
+                                .getAttribute('data-horas');
+                        })
+                    </script>
+            </form>
+        </div>
+        <div class="row g-2">
+            <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                <a href="{{ url()->previous() }}" class="btn btn-info w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M9 14l-4 -4l4 -4" />
+                        <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
+                    </svg>
+                    Volver
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                <a href="{{ url('leccion/' . $leccion->id) }}" class="btn btn-warning w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                    </svg>
+                    Mostrar lección
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                <button type="button" form="deleteLeccionForm" class="btn btn-danger w-100"
+                    data-url="{{ url('leccion/' . $leccion->id) }}" data-id="{{ $leccion->id }}"
+                    data-bs-toggle="modal" data-bs-target="#deleteLeccionModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 7l16 0" />
+                        <path d="M10 11l0 6" />
+                        <path d="M14 11l0 6" />
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                    </svg>
+                    Eliminar lección
+                </button>
             </div>
         </div>
     </div>
