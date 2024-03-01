@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Leccion\LeccionEditRequest;
 use App\Models\Grupo;
 use App\Models\Leccion;
 use App\Models\Modulo;
@@ -208,6 +209,7 @@ class LeccionController extends Controller
      */
     public function store(Request $request)
     {
+        return back();
     }
 
     private function newLeccion($grp, $mod)
@@ -247,7 +249,7 @@ class LeccionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Leccion $leccion)
+    public function update(LeccionEditRequest $request, Leccion $leccion)
     {
         try {
             // Actualizamos el módulo
