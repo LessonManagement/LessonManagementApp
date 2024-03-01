@@ -7,4 +7,9 @@ use App\Http\Requests\Modulo\ModuloCreateRequest;
 
 class ModuloEditRequest extends ModuloCreateRequest
 {
+    public function rules(): array
+    {
+        $rules = parent::rules();
+        return $rules;
+    }
 }
