@@ -52,17 +52,20 @@ class ProfesorController extends Controller
         $q = $request->q;
 
         $profesorQuery = DB::table('profesor')
-            ->select('id', 'seneca_username', 'nombre', 'apellido1', 'apellido2', 'email', 'especialidad');
+            ->select('id', 'seneca_username', 'nombre', 'apellido1', 'apellido2', 'email', 'especialidad')
+            ->where('id', '<>', 1);
 
         // Comprobamos la query (q)
         if ($q != null) {
-            $profesorQuery = $profesorQuery->where('profesor.id', 'like', '%' . $q . '%')
-                ->orWhere('profesor.seneca_username', 'like', '%' . $q . '%')
-                ->orWhere('profesor.nombre', 'like', '%' . $q . '%')
-                ->orWhere('profesor.apellido1', 'like', '%' . $q . '%')
-                ->orWhere('profesor.apellido2', 'like', '%' . $q . '%')
-                ->orWhere('profesor.email', 'like', '%' . $q . '%')
-                ->orWhere('profesor.especialidad', 'like', '%' . $q . '%');
+            $profesorQuery = $profesorQuery->where(function ($query) use ($q) {
+                $query->where('profesor.id', 'like', '%' . $q . '%')
+                    ->orWhere('profesor.seneca_username', 'like', '%' . $q . '%')
+                    ->orWhere('profesor.nombre', 'like', '%' . $q . '%')
+                    ->orWhere('profesor.apellido1', 'like', '%' . $q . '%')
+                    ->orWhere('profesor.apellido2', 'like', '%' . $q . '%')
+                    ->orWhere('profesor.email', 'like', '%' . $q . '%')
+                    ->orWhere('profesor.especialidad', 'like', '%' . $q . '%');
+            });
         }
 
         $profesores = $profesorQuery->orderBy($orderBy, $orderType)
