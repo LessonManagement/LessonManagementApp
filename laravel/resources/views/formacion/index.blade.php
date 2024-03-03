@@ -228,7 +228,9 @@
 @endsection
 
 @section('main-content')
-    
+                        @error('denominacion')
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
     @include('formacion.modals.deleteFormacion')
     <div class="page-header d-print-none">
         <div class="container-xl">

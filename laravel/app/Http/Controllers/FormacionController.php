@@ -69,6 +69,12 @@ class FormacionController extends Controller
      */
     public function destroy(Formacion $formacion)
     {
-        //
+        try {
+            $formacion->delete();
+            return response()->json(['formaciones' => Formacion::all()]);
+
+        } catch(\Exception $e) {
+            return response()->json(['prueba'=> 'mal mal']);    
+        }
     }
 }

@@ -18,10 +18,6 @@
                 <div class="text-muted">¿Deseas borrar la formacion <span class="font-weight-bold"
                         id="denominacion-Formacion"></span>?</div>
             </div>
-            <form id="deleteForm" action="{{ url('') }}" method="post">
-                @csrf
-                @method('delete')
-            </form>
             <div class="modal-footer">
                 <div class="w-100">
                     <div class="row">
@@ -31,7 +27,7 @@
                             </a>
                         </div>
                         <div class="col">
-                            <button class="btn btn-danger w-100" form="deleteForm" type="submit">
+                            <button id="btnDelete" class="btn btn-danger w-100" form="deleteForm" type="submit">
                                 Eliminar grupo
                             </button>
                         </div>
