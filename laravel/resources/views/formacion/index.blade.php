@@ -232,6 +232,9 @@
                             <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
                         @enderror
     @include('formacion.modals.deleteFormacion')
+    @include('formacion.modals.showFormacion')
+    @include('formacion.modals.editFormacion')
+    @include('formacion.modals.createFormacion')
     <div class="page-header d-print-none">
         <div class="container-xl">
             <div class="bread-crumbs mb-5">

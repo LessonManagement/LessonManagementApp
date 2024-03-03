@@ -38,10 +38,10 @@
     </div>
 </div>
 <script>
-    // Funcionalidad para borrar modulos
-    const deleteModal = document.getElementById('deleteFormacionModal');
-    const denominacionGrupo = document.getElementById('denominacion-Formacion');
-    const formDelete = document.getElementById('deleteForm');
+    // Funcionalidad para borrar módulos
+    const createModal = document.getElementById('deleteFormacionModal');
+    const createDenominacion = document.getElementById('denominacion-Formacion');
+    const createForm = document.getElementById('deleteForm');
 
     deleteModal.addEventListener('show.bs.modal', event => {
         let denominacion = event.relatedTarget.dataset.denominacion;

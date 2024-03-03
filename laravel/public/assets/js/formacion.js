@@ -99,13 +99,17 @@
         spanDrop.appendChild(buttonDrop);
         spanDrop.appendChild(divDrop);
 
-        let mostrar = document.createElement('a');
+        let mostrar = document.createElement('button');
         mostrar.className = 'dropdown-item';
-        mostrar.setAttribute('href', '');
         mostrar.setAttribute('style', 'transform: translate3d(0px, auto, 0px)');
+        mostrar.setAttribute('data-bs-toggle', 'modal');
+        mostrar.setAttribute('data-bs-target', '#showFormacionModal');
+        mostrar.setAttribute('data-denominacion', formacion.denominacion);
+        mostrar.setAttribute('data-id', formacion.id);
+        mostrar.setAttribute('data-siglas', formacion.siglas);
         mostrar.textContent  = 'Mostrar';
         
-        let editar = document.createElement('a');
+        let editar = document.createElement('button');
         editar.className = 'dropdown-item';
         editar.setAttribute('href', '');
         editar.textContent  = 'Editar';
