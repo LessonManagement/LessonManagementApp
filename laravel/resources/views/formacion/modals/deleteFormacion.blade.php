@@ -48,6 +48,5 @@
         let url = event.relatedTarget.dataset.url;
 
         denominacionGrupo.innerText = denominacion;
-        formDelete.action = url;
     });
 </script>

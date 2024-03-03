@@ -250,7 +250,7 @@
                     </h2>
                 </div>
                 <div class="col-auto ms-auto d-print-none">
-                    <a href="{{ url('grupo/create') }}" class="btn btn-primary">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createFormacionModal">
                         <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -260,7 +260,7 @@
                             <path d="M5 12l14 0" />
                         </svg>
                         Nueva formación
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>

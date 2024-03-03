@@ -3,17 +3,25 @@
     const url = document.querySelector('meta[name="url-base"]')['content'];
     const csrf  = document.querySelector('meta[name="csrf-token"]')['content'];
     var btnDelete = document.getElementById('btnDelete');
+    var btncreate = document.getElementById('btncreate');
+    const createModal = document.getElementById('createFormacionModal');
    
 
     document.addEventListener('DOMContentLoaded', function(){
         peticionFormaciones();
     });
 
-    btnDelete.addEventListener('click', function(){
-        llamadaDelete();
-        console.log('funciona');
-        let id = document.getElementById('deletebtn')
-        console.log(id.getAttribute("data-id"));
+    /**
+     * evento para crear formacion
+     */
+    btncreate.addEventListener('click', function(){
+        llamadaCreate();
+    });
+
+    createModal.addEventListener('hidden.bs.modal', event => {
+        console.log('oculto');
+        document.getElementById('inputDenominacionCreate').value = '';
+        document.getElementById('inputSiglasCreate').value = '';
     });
     
     /**
@@ -33,9 +41,38 @@
     * Metodo para la peticion al metodo delete
     *     
     */
-   function llamadaDelete(){
-    let id = document.getElementById('deletebtn');
-    fetch(url + '/formacion/'+ id.getAttribute("data-id"), {
+   function llamadaCreate(){
+    let data = {
+        denominacion: document.getElementById('inputDenominacionCreate').value,
+        siglas: document.getElementById('inputSiglasCreate').value
+    };
+    fetch(url + '/formacion' , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': csrf
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
+
+          var modalElem = document.getElementById('createFormacionModal');
+          var modalInstance = bootstrap.Modal.getInstance(modalElem);
+          modalInstance.hide();
+          tablaFormacion(data.formaciones);
+      })
+      .catch(error => console.error("Error:", error));
+  };
+  
+   /**
+    * Metodo para la peticion al metodo delete
+    *     
+    */
+   function llamadaDelete(id){
+    fetch(url + '/formacion/'+ id, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -111,7 +148,6 @@
         
         let editar = document.createElement('button');
         editar.className = 'dropdown-item';
-        editar.setAttribute('href', '');
         editar.textContent  = 'Editar';
 
         let eliminar = document.createElement('button');
@@ -125,6 +161,13 @@
         eliminar.setAttribute('data-bs-toggle', 'modal');
         eliminar.setAttribute('data-bs-target', '#deleteFormacionModal');
         eliminar.textContent  = 'Eliminar';
+
+        /**
+        * evento para borrar formacion
+        */
+        eliminar.addEventListener('click', function(){
+            llamadaDelete(formacion.id);
+        });
         
         divDrop.appendChild(mostrar);
         divDrop.appendChild(editar);

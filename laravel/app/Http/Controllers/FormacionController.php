@@ -25,35 +25,17 @@ class FormacionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('formacion.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Formacion $formacion)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Formacion $formacion)
-    {
-        //
+        $formacion = new Formacion($request->all());
+        try {
+            $formacion->save();
+            return response()->json(['formaciones' => Formacion::all()]);
+        } catch(\Exception $e) {
+            return response()->json(['prueba'=> 'mal mal']);    
+        }
     }
 
     /**
