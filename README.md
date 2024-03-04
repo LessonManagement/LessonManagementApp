@@ -23,7 +23,7 @@ cd /
 docker-compose up -d
 ```
 8. Acceso a backend <br>
-<a href="http://localhost:8800" target="_blank">http://localhost:8800</a><br>
+<a href="http://localhost:8800" target="_blank">http://localhost:8800</a><br><br>
 9. Credenciales iniciales
   - Email -> dwes@ieszaidinvergeles.org
   - Password -> lm2024
