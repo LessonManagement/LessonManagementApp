@@ -43,7 +43,12 @@ class FormacionController extends Controller
      */
     public function update(Request $request, Formacion $formacion)
     {
-        //
+        try {
+            $formacion->upadte($request->all());
+            return response()->json(['formaciones' => Formacion::all(), 'result' => true]);
+        } catch(\Exception $e) {
+            return response()->json(['prueba'=> 'mal mal', 'result' => false]);    
+        }
     }
 
     /**
@@ -53,10 +58,9 @@ class FormacionController extends Controller
     {
         try {
             $formacion->delete();
-            return response()->json(['formaciones' => Formacion::all()]);
-
+            return response()->json(['formaciones' => Formacion::all(), 'result' => true]);
         } catch(\Exception $e) {
-            return response()->json(['prueba'=> 'mal mal']);    
+            return response()->json(['prueba'=> 'mal mal', 'result' => true]);    
         }
     }
 }

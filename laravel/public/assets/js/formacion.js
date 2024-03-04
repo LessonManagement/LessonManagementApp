@@ -4,7 +4,7 @@
     const csrf  = document.querySelector('meta[name="csrf-token"]')['content'];
     var btnDelete = document.getElementById('btnDelete');
     var btncreate = document.getElementById('btncreate');
-    const createModal = document.getElementById('createFormacionModal');
+    var createModal = document.getElementById('createFormacionModal');
    
 
     document.addEventListener('DOMContentLoaded', function(){
@@ -15,6 +15,7 @@
      * evento para crear formacion
      */
     btncreate.addEventListener('click', function(){
+        console.log('hola estoy aquí');
         llamadaCreate();
     });
 
@@ -58,20 +59,20 @@
       .then(data => {
           console.log(data);
         if(data.result){
-            var modalElem = document.getElementById('createFormacionModal');
-            var modalInstance = bootstrap.Modal.getInstance(modalElem);
+            let modalElem = document.getElementById('createFormacionModal');
+            let modalInstance = bootstrap.Modal.getInstance(modalElem);
             modalInstance.hide();
 
-            var arletok = document.getElementById('arlet');
+            let arletok = document.getElementById('arlet');
             arletok.className = 'alert alert-success mt-3';
 
             tablaFormacion(data.formaciones);
         }else{
-            var modalElem = document.getElementById('createFormacionModal');
-            var modalInstance = bootstrap.Modal.getInstance(modalElem);
+            let modalElem = document.getElementById('createFormacionModal');
+            let modalInstance = bootstrap.Modal.getInstance(modalElem);
             modalInstance.hide();
             
-            var arletok = document.getElementById('arlet');
+            let arletok = document.getElementById('arlet');
             arletok.className = 'alert alert-danger mt-3';
             arletok.textContent = 'La formacion no se a podido crear';
         }
@@ -80,8 +81,7 @@
   };
   
    /**
-    * Metodo para la peticion al metodo delete
-    *     
+    * Metodo para la peticion al metodo delete   
     */
    function llamadaDelete(id){
     fetch(url + '/formacion/'+ id, {
@@ -94,11 +94,67 @@
       })
       .then(response => response.json())
       .then(data => {
-          console.log(data);
-          var modalElem = document.getElementById('deleteFormacionModal');
-          var modalInstance = bootstrap.Modal.getInstance(modalElem);
-          modalInstance.hide();
-          tablaFormacion(data.formaciones);
+        if(data.result){
+            let modalElem = document.getElementById('deleteFormacionModal');
+            let modalInstance = bootstrap.Modal.getInstance(modalElem);
+            modalInstance.hide();
+
+            let arletok = document.getElementById('arlet');
+            arletok.className = 'alert alert-success mt-3';
+            arletok.textContent = 'Formacion borrada correctamente';
+
+            tablaFormacion(data.formaciones);
+        }else{
+            let modalElem = document.getElementById('deleteFormacionModal');
+            let modalInstance = bootstrap.Modal.getInstance(modalElem);
+            modalInstance.hide();
+            
+            let arletok = document.getElementById('arlet');
+            arletok.className = 'alert alert-danger mt-3';
+            arletok.textContent = 'No se a podido borrar la Formacion';
+        }
+      })
+      .catch(error => console.error("Error:", error));
+  };
+
+  /**
+   * Metodo para la peticion al metodo update
+   */
+  function llamadaEdit(id){
+    let data = {
+        denominacion: document.getElementById('inputDenominacionEdit').value,
+        siglas: document.getElementById('inputSiglasEdit').value
+    };
+    fetch(url + '/formacion/'+ id, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': csrf
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.result){
+            let modalElem = document.getElementById('editFormacionModal');
+            let modalInstance = bootstrap.Modal.getInstance(modalElem);
+            modalInstance.hide();
+
+            let arletok = document.getElementById('arlet');
+            arletok.className = 'alert alert-success mt-3';
+            arletok.textContent = 'Formacion editada correctamente';
+
+            tablaFormacion(data.formaciones);
+        }else{
+            let modalElem = document.getElementById('editFormacionModal');
+            let modalInstance = bootstrap.Modal.getInstance(modalElem);
+            modalInstance.hide();
+            
+            let arletok = document.getElementById('arlet');
+            arletok.className = 'alert alert-danger mt-3';
+            arletok.textContent = 'No se a podido editar';
+        }
       })
       .catch(error => console.error("Error:", error));
   };
@@ -161,6 +217,17 @@
         let editar = document.createElement('button');
         editar.className = 'dropdown-item';
         editar.textContent  = 'Editar';
+        editar.setAttribute('data-bs-toggle', 'modal');
+        editar.setAttribute('data-bs-target', '#editFormacionModal');
+        editar.setAttribute('data-denominacion', formacion.denominacion);
+        editar.setAttribute('data-id', formacion.id);
+        editar.setAttribute('data-siglas', formacion.siglas);
+        /**
+        * evento para editar formacion
+        */
+        editar.onclick = function(){
+            llamadaEdit(formacion.id);
+        };
 
         let eliminar = document.createElement('button');
         eliminar.setAttribute('type', 'button');
@@ -177,9 +244,9 @@
         /**
         * evento para borrar formacion
         */
-        eliminar.addEventListener('click', function(){
-            llamadaDelete(formacion.id);
-        });
+        eliminar.onclick = function(){
+            llamadaDelete(formacion);
+        };
         
         divDrop.appendChild(mostrar);
         divDrop.appendChild(editar);
