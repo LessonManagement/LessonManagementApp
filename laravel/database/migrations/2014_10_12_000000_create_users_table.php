@@ -31,10 +31,7 @@ return new class extends Migration {
 
         // Creamos usuario root por defecto al aplicar las migraciones
         $pass = Hash::make('lm2024');
-        $sql = "
-        insert into users (name, email, email_verified_at, password, type, created_at, updated_at) VALUES ('Root', 'root@root.es', '2024-02-21 10:07:58', '" . $pass . "', 'root', '2024-02-21 10:07:58', '2024-02-21 10:07:58');
-        insert into users (name, email, email_verified_at, password, type, created_at, updated_at) VALUES ('Carmelo', 'dwes@ieszaidinvergeles.org', '2024-02-21 10:07:58', '" . $pass . "', 'root', '2024-02-21 10:07:58', '2024-02-21 10:07:58')
-        ";
+        $sql = "insert into users (name, email, email_verified_at, password, type, created_at, updated_at) VALUES ('Carmelo', 'dwes@ieszaidinvergeles.org', '2024-02-21 10:07:58', '" . $pass . "', 'root', '2024-02-21 10:07:58', '2024-02-21 10:07:58')";
         DB::statement($sql);
     }
 

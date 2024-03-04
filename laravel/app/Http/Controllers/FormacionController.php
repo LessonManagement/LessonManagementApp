@@ -11,16 +11,17 @@ class FormacionController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {  
         return view('formacion.index');
     }
-
+    
     /**
-     * Show the form for creating a new resource.
+     * Metodo para llamada ajax de la tabla formacion
      */
-    public function create()
-    {
-        return view('formacion.create');
+    public function indexAjax()
+    {  
+        $formaciones = Formacion::all();
+        return response()->json(['formaciones' => $formaciones]);
     }
 
     /**
@@ -28,23 +29,13 @@ class FormacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Formacion $formacion)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Formacion $formacion)
-    {
-        //
+        $formacion = new Formacion($request->all());
+        try {
+            $formacion->save();
+            return response()->json(['formaciones' => Formacion::all(), 'result' => true]);
+        } catch(\Exception $e) {
+            return response()->json(['prueba'=> 'mal mal', 'result' => false]);    
+        }
     }
 
     /**
@@ -52,7 +43,12 @@ class FormacionController extends Controller
      */
     public function update(Request $request, Formacion $formacion)
     {
-        //
+        try {
+            $formacion->upadte($request->all());
+            return response()->json(['formaciones' => Formacion::all(), 'result' => true]);
+        } catch(\Exception $e) {
+            return response()->json(['prueba'=> 'mal mal', 'result' => false]);    
+        }
     }
 
     /**
@@ -60,6 +56,11 @@ class FormacionController extends Controller
      */
     public function destroy(Formacion $formacion)
     {
-        //
+        try {
+            $formacion->delete();
+            return response()->json(['formaciones' => Formacion::all(), 'result' => true]);
+        } catch(\Exception $e) {
+            return response()->json(['prueba'=> 'mal mal', 'result' => true]);    
+        }
     }
 }

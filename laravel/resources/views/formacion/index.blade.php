@@ -228,14 +228,110 @@
 @endsection
 
 @section('main-content')
+                        @error('denominacion')
+                            <p style="color: #c62828; font-size: .9rem">{{ $message }}</p>
+                        @enderror
+    @include('formacion.modals.deleteFormacion')
+    @include('formacion.modals.showFormacion')
+    @include('formacion.modals.editFormacion')
+    @include('formacion.modals.createFormacion')
     <div class="page-header d-print-none">
         <div class="container-xl">
-            <div class="bread-crumbs">
+            <div class="bread-crumbs mb-5">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ urL('formacion') }}">Formación</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ url('formacion') }}">Formación</a></li>
                 </ol>
             </div>
+            <div class="row g-2 d-flex flex-row justify-content-between">
+                <div class="col">
+                    <h2 class="page-title col-xl-3">
+                        Lista de formaciones
+                    </h2>
+                </div>
+                <div class="col-auto ms-auto d-print-none">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createFormacionModal">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 5l0 14" />
+                            <path d="M5 12l14 0" />
+                        </svg>
+                        Nueva formación
+                    </button>
+                </div>
+            </div>
+            <div class="alert alert-success mt-3 visually-hidden" id="arlet" role="alert">
+                Formacion creada correctamente
+            </div>
+        </div>
+        
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            {{-- TABLA PARA MOSTRAR Fromacion --}}
+            <div class="row row-cards">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body border-bottom py-3">
+                            <div class="d-flex">
+                                <!-- Aqui va el show entries -->
+                                <!-- Aqui va el search -->
+                            </div>
+                        </div>
+                        <div class="table-responsive" style="min-height: 250px">
+                            <table class="table card-table table-vcenter text-nowrap datatable">
+                                <thead id="thead">
+                                    <tr>
+                                        <th class="w-1">
+                                            ID
+                                            <!--Aqui va el filtrado -->
+                                        </th>
+                                        <th>
+                                            Denominacion
+                                            <!--Aqui va el filtrado -->
+                                        </th>
+                                        <th>
+                                            Siglas
+                                            <!--Aqui va el filtrado -->
+                                        </th>
+                                        <th></th>
+                                    </tr>
+
+                                </thead>
+                                <tbody id="tbody">
+
+                                        
+                                </tbody>
+
+
+
+
+                            </table>
+                        </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">Showing <span> init_grupo </span> to
+                                <span>last_grupo_page</span> of
+                                <span>grupo_count </span> entries
+                            </p>
+                             <!-- grupos->appends(['rpp' => rpp, 'orderBy' => orderBy, 'orderType' => orderType, 'q' => q])->onEachSide(2)->links()
+                                -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                /*
+                document.getElementById('rpp').addEventListener('change', () => {
+                    // Envio del formulario
+                    document.getElementById('rowPerPage').submit();
+                })
+                */
+            </script>
         </div>
     </div>
+    <script src="{{url('assets/js/formacion.js')}}"></script>
 @endsection
+
