@@ -1,0 +1,162 @@
+.wrapper {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-container {
+    display: flex;
+
+    background-image: url(/src/Components/Assets/hero.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: contain;
+
+    align-items: center;
+    align-content: center;
+    justify-content: flex-end;
+        
+    width: 100vw;
+    height: 100vh;
+}
+
+.login-container {
+    width: 40vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+    /* background-image: transparent; */
+}
+
+.logo {
+    background-image: url(/src/Components/Assets/lm_ico.svg);
+    background-repeat: no-repeat;
+
+    width: 15em;
+    height: 15em;
+}
+
+.login-text {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 30vw;
+    height: 14vh;
+
+    /* position: relative; */
+
+    margin-top: 5vh;
+}
+
+.login-text h2 {
+    font-size: clamp(1.2rem, 0.986rem + 0.571vw, 1.5rem);
+    font-weight: 600;
+    /* background-color: aquamarine; */
+}
+
+.login-text p {
+    font-size: clamp(1.1rem, 0.957rem + 0.381vw, 1.3rem);
+    font-weight: 600;
+
+    opacity: 0.65;
+
+    margin-top: 2vh;
+}
+
+.sign-in-container {
+    width: 20em;
+    height: 5vh;
+
+    background-color: red;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-around;
+
+    margin-bottom: 10vh;
+    margin-left: 0vw;
+    cursor: pointer;
+    margin-top: 2.5vh;
+}
+
+.sign-in-container img {
+    width: 2.5em;
+    height: 1.7em;
+
+    margin-top: 1.05vh;
+    margin-left: 1vw;
+}
+
+.sign-in-container h3 {
+    color: white;
+    line-height: 5vh;
+    margin-right: 1vw;
+
+    font-size: clamp(1.1rem, 0.957rem + 0.381vw, 1.1rem);
+
+    font-weight: 400;
+}
+
+
+@media only screen and (max-width: 1800px) {
+    .image-container {
+        background-image: url(../Assets/hero-resize.jpg);
+    }
+}
+
+
+@media only screen and (max-width: 1450px) {
+    .image-container {
+        background-image: url(../Assets/hero-resize-2.jpg);
+    }
+}
+
+@media only screen and (max-width: 1358px) {
+
+    .login-text h2 {
+        font-size: clamp(1.1rem, 0.921rem + 0.476vw, 1.35rem);
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .login-container {
+        margin-right: 2.4vw;
+    }
+}
+
+
+@media only screen and (max-width: 1175px) {
+    .image-container {
+        background: none;
+    }
+    
+    .login-container {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .login-text h2 {
+        width: 100vw;
+        font-size: clamp(1.2rem, 0.986rem + 0.571vw, 1.5rem);
+    }
+
+    .login-text p {
+        width: 100vw;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .logo {
+        width: 12.5em;
+        height: 12.5em;
+    }
+}
