@@ -19,7 +19,6 @@
     });
 
     createModal.addEventListener('hidden.bs.modal', event => {
-        console.log('oculto');
         document.getElementById('inputDenominacionCreate').value = '';
         document.getElementById('inputSiglasCreate').value = '';
     });
@@ -58,11 +57,24 @@
       .then(response => response.json())
       .then(data => {
           console.log(data);
+        if(data.result){
+            var modalElem = document.getElementById('createFormacionModal');
+            var modalInstance = bootstrap.Modal.getInstance(modalElem);
+            modalInstance.hide();
 
-          var modalElem = document.getElementById('createFormacionModal');
-          var modalInstance = bootstrap.Modal.getInstance(modalElem);
-          modalInstance.hide();
-          tablaFormacion(data.formaciones);
+            var arletok = document.getElementById('arlet');
+            arletok.className = 'alert alert-success mt-3';
+
+            tablaFormacion(data.formaciones);
+        }else{
+            var modalElem = document.getElementById('createFormacionModal');
+            var modalInstance = bootstrap.Modal.getInstance(modalElem);
+            modalInstance.hide();
+            
+            var arletok = document.getElementById('arlet');
+            arletok.className = 'alert alert-danger mt-3';
+            arletok.textContent = 'La formacion no se a podido crear';
+        }
       })
       .catch(error => console.error("Error:", error));
   };

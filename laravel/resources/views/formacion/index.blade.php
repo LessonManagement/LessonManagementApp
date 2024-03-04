@@ -263,7 +263,11 @@
                     </button>
                 </div>
             </div>
+            <div class="alert alert-success mt-3 visually-hidden" id="arlet" role="alert">
+                Formacion creada correctamente
+            </div>
         </div>
+        
     </div>
     <div class="page-body">
         <div class="container-xl">

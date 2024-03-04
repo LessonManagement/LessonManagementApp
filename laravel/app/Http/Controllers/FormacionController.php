@@ -32,9 +32,9 @@ class FormacionController extends Controller
         $formacion = new Formacion($request->all());
         try {
             $formacion->save();
-            return response()->json(['formaciones' => Formacion::all()]);
+            return response()->json(['formaciones' => Formacion::all(), 'result' => true]);
         } catch(\Exception $e) {
-            return response()->json(['prueba'=> 'mal mal']);    
+            return response()->json(['prueba'=> 'mal mal', 'result' => false]);    
         }
     }
 
