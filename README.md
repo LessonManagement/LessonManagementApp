@@ -23,7 +23,5 @@ cd /
 docker-compose up -d
 ```
 8. Acceso a backend
-```bash
-http://localhost:8800
-```
+<a href="http://localhost:8800" target="_blank">http://localhost:8800</a>
 10. 
