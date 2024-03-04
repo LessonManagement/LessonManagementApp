@@ -17,3 +17,13 @@ mkdir data
 ```bash
 php artisan migrate
 ```
+6. Lanzamiento de aplicación en docker
+```bash
+cd /
+docker-compose up -d
+```
+8. Acceso a backend
+```bash
+http://localhost:8800
+```
+10. 
